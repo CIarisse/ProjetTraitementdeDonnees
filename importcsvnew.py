@@ -4,9 +4,10 @@ import gzip
 
 
 class Table():
-    def __init__(self, nom, chemin):
+    def __init__(self, nom, chemin, donnees = []):
         self.nom = nom
         self.chemin = chemin
+        self.donnees = donnees
 
     def importcsv(chemin):
         data = []
@@ -14,7 +15,8 @@ class Table():
             reader = csv.reader(csvfile, delimiter=';')
             for row in reader:
                 data.append(row)
-        return data
+        self.donnees = data
+        #return data
 
 
     def import_json(chemin,nom):
@@ -60,7 +62,8 @@ class Table():
                         l.append(data[i][list_doubledict[i][0]][j])
                     compte_col+=1
                 lignes.append(l)
-            return list_doubledict
+            self.donnees = list_doubledict
+            #return list_doubledict
 
 
 #tab = Table.importcsv("P:\Projet_info\postesSynop.csv")
