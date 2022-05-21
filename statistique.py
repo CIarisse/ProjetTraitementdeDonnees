@@ -62,3 +62,4 @@ class Statistique(Estimation):
                         valeurs.append(float(self.table.donnees[k][c]))
                 res.append(round(statistics.pvariance(valeurs),a))
         return res
+    
