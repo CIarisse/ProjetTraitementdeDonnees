@@ -4,44 +4,33 @@ import gzip
 
 
 class Table():
-    '''Classe qui gère les tables et les imports suivant les formats
+    '''Classe qui gère les tables et les imports/exports suivant les formats
 
     Attributes
     ----------
-    donnees : list
-        les donnees sous format csv
-
-    Parameters
-    ----------
-    donnees : list 
-        les donnees sous format csv
+    donnees : list, default []
+        les donnees sous format de liste de listes
 
 
     Examples
     --------
-    >>> tab = Table.importcsv("P:\Projet_info\postesSynop.csv")
-    >>>print(tab)
+    >>>postes = Table()
+    >>>postes.importcsv("P:\Projet_info\postesSynop.csv")
+    >>>print(postes.donnees)
     
     '''
-    def __init__(self, nom, chemin, donnees = []):
-        ''' Création d'une table grâce à son nom, le chemin où elle se trouve et les donnees en elles-mêmes
+    def __init__(self, donnees = []):
+        ''' Création d'une table grâce aux données
         Parameters
         ----------
-        nom : str 
-            Le nom de la table
-        chemin : str 
-            Le chemin de la table
-        donnees : list
-            L'ensemble des données sur forme de liste
+        donnees : list, default []
+            L'ensemble des données sous forme de liste de listes
 
-            
         '''
-        self.nom = nom
-        self.chemin = chemin
         self.donnees = donnees
 
     def importcsv(chemin):
-        '''Importation des tables au format csv
+        '''Importation d'une table au format csv
         Parameters
         ----------
         chemin : str 
@@ -49,8 +38,9 @@ class Table():
 
         Examples
         --------
-    >>> tab = Table.importcsv("P:\Projet_info\postesSynop.csv")
-    >>>print(tab)
+        >>>postes = Table()
+        >>>postes.importcsv("P:\Projet_info\postesSynop.csv")
+        >>>print(postes.donnees)
             
         '''
         data = []
@@ -59,11 +49,10 @@ class Table():
             for row in reader:
                 data.append(row)
         self.donnees = data
-        #return data
 
 
     def import_json(chemin,nom):
-        """'''Importation des tables au format json
+        """'''Importation d'une table au format json
         Parameters
         ----------
         chemin : str 
@@ -73,59 +62,59 @@ class Table():
 
         Examples
         --------
-    >>> tab2 = Table.import_json("P:\Projet_info",r"\test2.json.gz")
-    >>> print(tab2)
+        >>>test2 = Table()
+        >>>test2.import_json("P:\Projet_info",r"\test2.json.gz")
+        >>>print(test2.donnees)
     
-    """
-            # Dossier où se trouve le fichier :
-            folder = chemin
-            filename = nom
-            with gzip.open(folder + filename, mode='rt') as gzfile :
-                data = json.load(gzfile)
- 
+        """
+        # Dossier où se trouve le fichier :
+        folder = chemin
+        filename = nom
+        with gzip.open(folder + filename, mode='rt') as gzfile :
+            data = json.load(gzfile)
+
         #ici data est une liste de dictionnaires
 
         #on cherche les variables
-            var=[]
-            nb_var=0
-            list_doubledict=[]
-            for i in range(len(data)):
-                nom_col=list(data[i].keys())
-                nom_colonnes=list(data[i].keys())
-                k=0
-                for j in nom_col:
-                    if isinstance(data[i][j],dict):
-                        nom_colonnes+=list(data[i][j].keys())
-                        del(nom_colonnes[k])
-                        list_doubledict.append([j,len(list(data[i][j].keys()))])
-                    k+=1
-                var.append([nom_colonnes,len(nom_colonnes)])
-                nb_var=max(nb_var,var[i][1])
-            for i in range(len(data)):
-                if nb_var==var[i][1]:
-                    noms_var=var[i][0]
-            lignes=[]
-            for i in range(len(data)):
-                var_par_obs=var[i][0]
-                nb_var_par_obs=var[i][1]
-                l=[]
-                compte_col=0 #car j est un str
-                for j in noms_var:
-                    if j not in var_par_obs:
-                        l.append("mq")
-                    elif compte_col<nb_var_par_obs-list_doubledict[i][1]:
-                        l.append(data[i][j])
-                    else:
-                        l.append(data[i][list_doubledict[i][0]][j])
-                    compte_col+=1
-                lignes.append(l)
-            self.donnees = list_doubledict
-            #return list_doubledict
+        var=[]
+        nb_var=0
+        list_doubledict=[]
+        for i in range(len(data)):
+            nom_col=list(data[i].keys())
+            nom_colonnes=list(data[i].keys())
+            k=0
+            for j in nom_col:
+                if isinstance(data[i][j],dict):
+                    nom_colonnes+=list(data[i][j].keys())
+                    del(nom_colonnes[k])
+                    list_doubledict.append([j,len(list(data[i][j].keys()))])
+                k+=1
+            var.append([nom_colonnes,len(nom_colonnes)])
+            nb_var=max(nb_var,var[i][1])
+        for i in range(len(data)):
+            if nb_var==var[i][1]:
+                noms_var=var[i][0]
+        lignes=[]
+        for i in range(len(data)):
+            var_par_obs=var[i][0]
+            nb_var_par_obs=var[i][1]
+            l=[]
+            compte_col=0 #car j est un str
+            for j in noms_var:
+                if j not in var_par_obs:
+                    l.append("mq")
+                elif compte_col<nb_var_par_obs-list_doubledict[i][1]:
+                    l.append(data[i][j])
+                else:
+                    l.append(data[i][list_doubledict[i][0]][j])
+                compte_col+=1
+            lignes.append(l)
+        self.donnees = list_doubledict
 
 
-#tab = Table.importcsv("P:\Projet_info\postesSynop.csv")
-#print(tab)
-
+        
+        
+        
 #Tableau1=importcsv("P:\Projet_info\postesSynop.csv")
 #print(Tableau1)
 #a = Table("2013-02.json.gz","P:\Projet_info\donnees_elec\2013-02.json.gz")
