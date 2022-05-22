@@ -4,12 +4,55 @@ import gzip
 
 
 class Table():
+    '''Classe qui gère les tables et les imports suivant les formats
+
+    Attributes
+    ----------
+    donnees : list
+        les donnees sous format csv
+
+    Parameters
+    ----------
+    donnees : list 
+        les donnees sous format csv
+
+
+    Examples
+    --------
+    >>> tab = Table.importcsv("P:\Projet_info\postesSynop.csv")
+    >>>print(tab)
+    
+    '''
     def __init__(self, nom, chemin, donnees = []):
+        ''' Création d'une table grâce à son nom, le chemin où elle se trouve et les donnees en elles-mêmes
+        Parameters
+        ----------
+        nom : str 
+            Le nom de la table
+        chemin : str 
+            Le chemin de la table
+        donnees : list
+            L'ensemble des données sur forme de liste
+
+            
+        '''
         self.nom = nom
         self.chemin = chemin
         self.donnees = donnees
 
     def importcsv(chemin):
+        '''Importation des tables au format csv
+        Parameters
+        ----------
+        chemin : str 
+            Le chemin où se trouve le fichier csv
+
+        Examples
+        --------
+    >>> tab = Table.importcsv("P:\Projet_info\postesSynop.csv")
+    >>>print(tab)
+            
+        '''
         data = []
         with open(chemin, encoding='ISO-8859-1') as csvfile :
             reader = csv.reader(csvfile, delimiter=';')
@@ -20,6 +63,20 @@ class Table():
 
 
     def import_json(chemin,nom):
+        """'''Importation des tables au format json
+        Parameters
+        ----------
+        chemin : str 
+            Le chemin où se trouve le fichier json
+        nom : str 
+            Le nom du fichier qui contient les donnees 
+
+        Examples
+        --------
+    >>> tab2 = Table.import_json("P:\Projet_info",r"\test2.json.gz")
+    >>> print(tab2)
+    
+    """
             # Dossier où se trouve le fichier :
             folder = chemin
             filename = nom
@@ -77,7 +134,6 @@ class Table():
 tab2 = Table.import_json("P:\Projet_info",r"\test2.json.gz")
 print(tab2)
 #tab2.import_json()
-
 
 
 
