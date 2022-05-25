@@ -120,8 +120,9 @@ class Table():
 #a = Table("2013-02.json.gz","P:\Projet_info\donnees_elec\2013-02.json.gz")
 #Tableau2=Table.import_json(a)
 #print(Tableau2)
-tab2 = Table.import_json("P:\Projet_info",r"\test2.json.gz")
-print(tab2)
+tab2 = Table()
+tab2.import_json("P:\Projet_info",r"\test2.json.gz")
+print(tab2.donnees)
 #tab2.import_json()
 
 
