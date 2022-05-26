@@ -18,6 +18,7 @@ class Temporel(Transformation) :
         nouvelle_table = Table([])
         for i in range(len(self.table.donnees[0])): #on parcourt le nom des variables de Table
             if self.variables[0] == self.table.donnees[0][i]: #si on retrouve le nom de la variable dans Table
+                nouvelle_table.donnees.append(self.table.donnees[0])
                 for j in range(1,len(self.table.donnees)): #on parcourt les lignes
                     var_date = self.table.donnees[j][i]
                     var_formate = datetime(int(var_date[0:4]), int(var_date[4:6]), int(var_date[6:8]),int(var_date[8:10], int(var_date[10:12])), int(var_date[12:14]))
