@@ -14,28 +14,33 @@ class Jointure(Transformation) :
 
         nouvelle_table=Table()
 
-        #verifie que variable commun est presente premiere table 
+
+        #on recopie le premier tableau
         comp = 0
         var = []
-        for n in range(len(self.table.donnees[0])):
-            if self.variables[0] != self.table.donnees[0][n]:
-                comp += 1
-            else :
-                for m in range(len(self.table.donnees)):
-                    var.append(self.table.donnees[m][n])
+        for k in range(len(self.table.donnees)): #parcourt lignes
+            nouvelle_table.donnees.append([])
+            for i in range(len(self.table.donnees[0])): #parcourt colonnes
+                if self.variables[0] != self.table.donnees[0][i]:
+                    comp += 1
+                else :
+                    var.append(self.table.donnees[k][i])
+                nouvelle_table.donnees[k].append(self.table.donnees[k][i]) 
         if comp == len(self.table.donnees[0]):
             print("Erreur : La variable clef n'est pas présente dans la première table")
             return Table()
-
-        #verifie que variable commun est presente deuxieme table 
+  
+        #on recopie le deuxieme tableau sans la colonne commune
         comp = 0
         var2 = []
-        for p in range(len(self.table2.donnees[0])):
-            if self.variables[0] != self.table2.donnees[0][p]:
-                comp += 1
-            else :
-                for o in range(len(self.table2.donnees)):
-                    var2.append(self.table2.donnees[o][p])
+        for l in range(len(self.table2.donnees)): #parcourt lignes
+            for j in range(len(self.table2.donnees[0])): #parcourt colonnes
+                if self.table2.donnees[0][j] != self.variables[0]:
+                    nouvelle_table.donnees[l].append(self.table2.donnees[l][j]) 
+                    comp += 1
+                else :
+                    var2.append(self.table2.donnees[l][j])
+
         if comp == len(self.table2.donnees[0]):
             print("Erreur : La variable clef n'est pas présente dans la deuxième table")
             return Table()
@@ -43,20 +48,6 @@ class Jointure(Transformation) :
         if var != var2:
             print("Erreur : Les 2 colonnes de la variable clef ne sont pas les mêmes")
             return Table()
-
-
-        #on recopie le premier tableau
-        for k in range(len(self.table.donnees)): #parcourt lignes
-            for i in range(len(self.table.donnees[0])): #parcourt colonnes
-                if i == 0:
-                    nouvelle_table.donnees.append([])
-                nouvelle_table.donnees[k].append(self.table.donnees[k][i]) 
-  
-        #on recopie le deuxieme tableau sans la colonne commune
-        for l in range(len(self.table2.donnees)): #parcourt lignes
-            for j in range(len(self.table2.donnees[0])): #parcourt colonnes
-                if self.table2.donnees[0][j] != self.variables[0]:
-                    nouvelle_table.donnees[l].append(self.table2.donnees[l][j]) 
 
         return nouvelle_table
 
