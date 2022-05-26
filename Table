@@ -2,7 +2,7 @@ import gzip
 import csv 
 import json
 
-class Table:
+class Table():
     def __init__(self,variables,donnees = []):
         self.variables = variables
         self.donnees = donnees
