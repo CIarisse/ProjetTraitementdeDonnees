@@ -1,11 +1,10 @@
-from table import Table
 from transformation import Transformation
+from table import Table
 
-class DonneesQuanti(Transformation) :
-    def __init__(self, table, variables, borne_inf, borne_sup):
+class DonneesQuali(Transformation) :
+    def __init__(self, table, variables, valeurs):
         Transformation.__init__(self, table, variables)
-        self.borne_inf = borne_inf
-        self.borne_sup = borne_sup
+        self.valeurs = valeurs
 
     def transforme(self):
         #si plus de 1 variable ou pas variable : erreur
@@ -18,21 +17,22 @@ class DonneesQuanti(Transformation) :
         for i in range(len(self.table.donnees[0])): #on parcourt le nom des variables de Table
             if self.variables[0] == self.table.donnees[0][i]: #si on retrouve le nom de la variable dans Table
                 for j in range(1,len(self.table.donnees)): #on parcourt les lignes
-                    try:
-                        if float(self.table.donnees[j][i]) < self.borne_sup and float(self.table.donnees[j][i]) > self.borne_inf: #si valeur dans notre colonne est bien dans bornes demandees
+                    for k in range(len(self.valeurs)): #on parcourt les valeurs qui nous interessent
+                        if self.table.donnees[j][i] == self.valeurs[k]: #si valeur dans notre colonne a bien valeur demande 
                             nouvelle_table.donnees.append(self.table.donnees[j]) #ajout de la ligne avec la bonne valeur
-                    except ValueError:
-                        continue     
         return nouvelle_table
 
 
 test = Table([["var1","var2","var3","var4"],
-              ["5","oui","NA","NA"],
-              ["8","non","87","NA"],
-              ["4","oui","2.9","97"]])
+              ["5","oui","NA","76"],
+              ["8","non","87","67.9"],
+              ["4","oui","2.9","NA"]])
 transf = Transformation(test,["var2"])
 print(transf.table.donnees)
-doquanti = DonneesQuanti(test, ["var4"], 75, 100)
-print(doquanti.table.donnees)
-res = doquanti.transforme()
+doquali = DonneesQuali(test, ["var2"], ["oui"])
+print(doquali.table.donnees)
+res = doquali.transforme()
 print(res.donnees)
+
+
+

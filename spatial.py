@@ -1,12 +1,12 @@
-from curses.ascii import isdigit
-from unicodedata import numeric
-from donneesquali import DonneesQuali
 import statistics
+
+from table import Table
+from transformation import Transformation
 
 
 class Spatial(Transformation) :
-    def __init__(self,):
-        Transformation.__init__()
+    def __init__(self,table,variables=[]):
+        Transformation.__init__(self, table, variables)
 
     def transforme(self):
          #agrégation spatiale : passage régional au national
@@ -20,12 +20,30 @@ class Spatial(Transformation) :
             for j in range(len(self.table.donnees)): #on parcourt les lignes
                 try:
                     float(self.table.donnees[j][i])
-                    temp.append(self.table.donnees[j][i])
+                    temp.append(float(self.table.donnees[j][i]))
                 except ValueError:
                     continue     
             if len(temp) != 0 :
-                nouvelle_table.donnees[1][i] = statistics.mean(temp)
+                nouvelle_table.donnees[1][i] = round(statistics.mean(temp),2)
             else :
                 nouvelle_table.donnees[1][i] = 'NA'
             temp = []
         return nouvelle_table
+
+
+
+test = Table([["var1","var2","var3","var4"],
+              ["5","oui","NA","NA"],
+              ["8","non","87","NA"],
+              ["4","oui","2.9","97"]])
+spa = Spatial(test)
+print(spa.table.donnees)
+res = spa.transforme()
+print(res.donnees)
+
+
+
+
+
+#transf = Transformation(test,["var2"])
+#print(transf.table.donnees)

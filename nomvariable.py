@@ -1,7 +1,10 @@
+from table import Table
+from transformation import Transformation
+
 class NomVariable(Transformation) :
-    def __init__(self, nouveau_nom):
+    def __init__(self, table, variables, nouveau_nom):
+        Transformation.__init__(self, table, variables)
         self.nouveau_nom = nouveau_nom
-        Transformation.__init__()
 
     def transforme(self):
         nouvelle_table = self.table #on copie la table
@@ -12,7 +15,15 @@ class NomVariable(Transformation) :
         return nouvelle_table
 
 
-
-#revoir bien avec attributs de Table
+test = Table([["var1","var2","var3","var4"],
+              ["5","oui","NA","NA"],
+              ["8","non","87","NA"],
+              ["4","oui","2.9","97"]])
+transf = Transformation(test,["var2"])
+print(transf.table.donnees)
+nomvar = NomVariable(test, ["var4","var2"], ["nveau","essai"])
+print(nomvar.table.donnees)
+res = nomvar.transforme()
+print(res.donnees)
 
 
