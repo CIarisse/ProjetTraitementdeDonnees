@@ -1,0 +1,71 @@
+import gzip
+import csv 
+import json
+
+class Table:
+    def __init__(self,variables,donnees = []):
+        self.variables = variables
+        self.donnees = donnees
+
+    def importer(chemin, format='csv', na = "mq"):
+        if format == 'csv':
+            lignes = []
+            with open(chemin, mode="rt",encoding='utf-8') as csvfile :
+                reader = csv.reader(csvfile, delimiter=';')
+                for row in reader:
+                    lignes.append(row)
+            
+
+            #On regarde d'abord les noms des variables
+            variables = lignes[0][:-1]
+            lignes = [ligne[:-1] for ligne in lignes[1:]]
+
+            #On fait l'importation des données
+            donnees = []
+            for v in variables:
+                donnees.append([])
+            for ligne in lignes:
+                for i in range(len(ligne)):
+                    valeur = ligne[i]
+                    #on vérifie au les char soient bien mises en int
+                    try:
+                        valeur = int(valeur)
+                    except ValueError:
+                        try:
+                            valeur = float(valeur)
+                        except ValueError:
+                            pass
+                    if valeur == na:
+                        valeur = None
+                    donnees[i].append(valeur)
+            #ce qui nous donne
+            return Table(variables,donnees) 
+        elif format == 'json':
+            lignes = []
+            with gzip.open(chemin, mode = "rt", encoding = "utf-8") as gzfile:
+                data = json.load(gzfile)
+            data = [obs["fields"] for obs in data]
+
+            #On importe les noms de nos variables
+            dictionnaire = {}
+            for ligne in data:
+                for nom_variable in ligne:
+                    if not nom_variable in dictionnaire:
+                        dictionnaire[nom_variable]=[]
+            variables = list(dictionnaire.keys)
+
+            #importation de nos données
+
+            for ligne in data:
+                for variable in dictionnaire:
+                    if variable in ligne:
+                        dictionnaire[variable].append(ligne[variable])
+                    else:
+                        dictionnaire[variable].append(None)
+            #Finalement on a la table suivante
+            donnees = []
+            for variable in variables:
+                donnees.append(dictionnaire[variable])
+            return Table(variables,donnees)
+tab = Table.importer("P:\Projet_info\postesSynop.csv")
+print(tab)
