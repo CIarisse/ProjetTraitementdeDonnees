@@ -10,7 +10,7 @@ class Jointure(Transformation) :
         #si plus de 1 variable ou pas variable ou nb lignes des tables different : erreur
         if len(self.variables) > 1 or len(self.variables) == 0 or (len(self.table.donnees) != len(self.table2.donnees)):
             print("Erreur : il faut 1 variable à filtrer et le même nombre de lignes pour les 2 tables")
-            return Table()     
+            return None     
 
         nouvelle_table=Table()
 
@@ -28,7 +28,7 @@ class Jointure(Transformation) :
                 nouvelle_table.donnees[k].append(self.table.donnees[k][i]) 
         if comp == len(self.table.donnees[0]):
             print("Erreur : La variable clef n'est pas présente dans la première table")
-            return Table()
+            return None  
   
         #on recopie le deuxieme tableau sans la colonne commune
         comp = 0
@@ -43,11 +43,11 @@ class Jointure(Transformation) :
 
         if comp == len(self.table2.donnees[0]):
             print("Erreur : La variable clef n'est pas présente dans la deuxième table")
-            return Table()
+            return None  
 
         if var != var2:
             print("Erreur : Les 2 colonnes de la variable clef ne sont pas les mêmes")
-            return Table()
+            return None
 
         return nouvelle_table
 
