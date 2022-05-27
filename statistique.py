@@ -14,7 +14,7 @@ class Statistique(Estimation):
         """ Calcule la statistique de(s) la (les) variables considérées 
         stat peut prendre les valeurs suivantes : 'moyenne', 'mediane', 'variance'
         
-        Attributes
+        Parameters
         ----------
         stat : str
             nom de la statistique à appliquer
@@ -62,4 +62,3 @@ class Statistique(Estimation):
                         valeurs.append(float(self.table.donnees[k][c]))
                 res.append(round(statistics.pvariance(valeurs),a))
         return res
-    
