@@ -34,7 +34,7 @@ def extrait(liste, milieu, taille):
 
 
 class MoyenneGlissante(Estimation):
-    '''Création de la classe moyenne glissante
+    '''Classe permettant de gérer la moyenne glissante
 
     La moyenne glissante modifie une table (liste de listes), et
     renvoie une table contenant dans chaque case la moyenne des n valeurs 
@@ -45,7 +45,6 @@ class MoyenneGlissante(Estimation):
         """Constructeur"""
         super().__init__(table, variable)
 
-        
     
     def estime(self, pas, manquante, a):
         '''Renvoie la moyenne glissante des variables considérées
@@ -78,7 +77,7 @@ class MoyenneGlissante(Estimation):
             # (y compris valeurs manquantes)
             for k in range(1,n):
                 if self.table.donnees[k][c] != manquante :
-                    valeurs.append(float(self.table.donnees[k][c])) # les valeurs non manquantes sont mis en float
+                    valeurs.append(float(self.table.donnees[k][c])) # les valeurs non manquantes sont mises en float
                 else : 
                     valeurs.append(self.table.donnees[k][c]) # on remet aussi les valeurs manquantes
             # valeurs contient l'ensemble des valeurs de la variable considérée (colonne c)
