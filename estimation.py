@@ -1,4 +1,3 @@
-#on essaye de coder
 from abc import ABC, abstractmethod
 
 class Estimation(ABC):
@@ -35,5 +34,5 @@ class Estimation(ABC):
         self.variables = variables
 
     @abstractmethod
-    def estime(self):
+    def estime():
         pass
