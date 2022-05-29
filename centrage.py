@@ -3,7 +3,36 @@ from table import Table
 import statistics
 
 class Centrage(Estimation):
-    """Classe permettant de gérer le centrage et la normalisation des variables"""
+    """Classe permettant de gérer le centrage et la normalisation des variables
+    
+    Attributes
+    ---------
+    table : Table
+        ensemble des données en liste de listes
+    variables : list
+        liste des noms des variales à considérer
+    arrondi : int = 2
+        nombre de décimales pour le calcul des statistiques
+        
+    Example
+    ------
+    >>> t = Table([["var1","var2","var3","var4"],
+              [5,"oui","NA",76],
+              [8,"non",87,67.9],
+              [4,"oui",2.9,56],
+              [3,"non",66,78.9],
+              [9,"oui",25,"NA"],
+              [8,"non",7.9,13.6]])
+    >>> c = Centrage(t, ['var4'])
+    >>> print(c.estime('centrer'))
+    [["var1","var2","var3","var4"],
+              [5,"oui","NA",17.52],
+              [8,"non",87,9.42,
+              [4,"oui",2.9,-2.48],
+              [3,"non",66,20.42],
+              [9,"oui",25,"NA"],
+              [8,"non",7.9,-44.88]]’
+    """
 
     def __init__(self, table, variables, arrondi = 2):
         """Constructeur"""
@@ -17,7 +46,6 @@ class Centrage(Estimation):
         ---------
         methode : str
             methode à appliquer : 'centrage' ou 'normalisation'
-
         
         Returns
         ------
