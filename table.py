@@ -14,9 +14,17 @@ class Table():
 
     Examples
     --------
-    >>>postes = Table()
-    >>>postes.importcsv("P:\Projet_info\postesSynop.csv")
-    >>>print(postes.donnees)
+    >>> test = Table([["var1","var2","var3","var4"],
+                        [5,"oui","NA",76],
+                        [8,"non",87,67.9],
+                        [4,"oui",2.9,56],
+                        [3,"non",66,78.9],
+                        [9,"oui",25,"NA"],
+                        [8,"non",7.9,13.6]])
+    >>> test.export("D:/Documents/Ecole/ENSAI 1A/projet_info/codes/donnees","test_export")
+    >>> nveau = Table()
+    >>> nveau.importcsv("D:/Documents/Ecole/ENSAI 1A/projet_info/codes/donnees/test_export.csv",'NA')
+    >>> print(nveau.donnees)
     
     '''
     def __init__(self, donnees = []):
@@ -37,11 +45,14 @@ class Table():
         chemin : str 
             Le chemin où se trouve le fichier csv
 
+        manquante : str
+            format des données manquantes dans la table
+
         Examples
         --------
-        >>>postes = Table()
-        >>>postes.importcsv("P:\Projet_info\postesSynop.csv")
-        >>>print(postes.donnees)
+        >>> tab = Table()
+        >>> tab.importcsv("D:\Documents\Ecole\ENSAI 1A\projet_info\codes\donnees\synop.201301.csv",'mq')
+        >>> print(tab.donnees[0:6])
             
         '''
         data = []
@@ -73,7 +84,7 @@ class Table():
 
 
     def importjson(self,chemin):
-        """'''Importation d'une table au format json
+        """Importation d'une table au format json
         Parameters
         ----------
         chemin : str 
@@ -81,9 +92,9 @@ class Table():
 
         Examples
         --------
-        >>>test2 = Table()
-        >>>test2.import_json("P:\Projet_info\test2.json.gz")
-        >>>print(test2.donnees)
+        >>> tab2 = Table()
+        >>> tab2.importjson("D:/Documents/Ecole/ENSAI 1A/projet_info/codes/donnees/2013-01.json.gz")
+        >>> print(tab2.donnees[0:6])
     
         """
         # Dossier où se trouve le fichier :
@@ -109,7 +120,7 @@ class Table():
                 else:
                     dictionnaire[variable].append('NA')
 
-        #Finalement on a la table suivante
+        #Table finale avec les conversions
         donnees = [variables]
         for variable in dictionnaire:
             for j in range(len(dictionnaire[variable])):
@@ -130,6 +141,25 @@ class Table():
         
 
     def export(self,chemin, nom_fichier):
+        """Exportation d'une table vers un fichier csv
+        Parameters
+        ----------
+        chemin : str 
+            Le chemin où on veut placer le fichier
+        nom_fichier : str
+            Le nom qu'on le veut donner au fichier
+
+        Examples
+        --------
+        >>> test = Table([["var1","var2","var3","var4"],
+                            [5,"oui","NA",76],
+                            [8,"non",87,67.9],
+                            [4,"oui",2.9,56],
+                            [3,"non",66,78.9],
+                            [9,"oui",25,"NA"],
+                            [8,"non",7.9,13.6]])
+        >>> test.export("D:/Documents/Ecole/ENSAI 1A/projet_info/codes/donnees","test_export")
+        """
         resultat=[]
         for i in range(len(self.donnees)):
             resultat.append(self.donnees[i])
@@ -137,34 +167,3 @@ class Table():
             sortie = csv.writer(csvfile,delimiter=';')
             sortie.writerows(resultat)
         
-        
-
-test = Table([["var1","var2","var3","var4"],
-              [5,"oui","NA",76],
-              [8,"non",87,67.9],
-              [4,"oui",2.9,56],
-              [3,"non",66,78.9],
-              [9,"oui",25,"NA"],
-              [8,"non",7.9,13.6]])
-
-test.export("D:/Documents/Ecole/ENSAI 1A/projet_info/codes/donnees","test_export")
-
-nveau = Table()
-nveau.importcsv("D:/Documents/Ecole/ENSAI 1A/projet_info/codes/donnees/test_export.csv",'NA')
-print(nveau.donnees)
-
-#Tableau1=importcsv("P:\Projet_info\postesSynop.csv")
-#print(Tableau1)
-#a = Table("2013-02.json.gz","P:\Projet_info\donnees_elec\2013-02.json.gz")
-#Tableau2=Table.import_json(a)
-#print(Tableau2)
-
-
-#tab = Table()
-#tab.importcsv("D:\Documents\Ecole\ENSAI 1A\projet_info\codes\donnees\synop.201301.csv",'mq')
-#print(tab.donnees[0:6])
-
-#tab2 = Table()
-#tab2.importjson("D:/Documents/Ecole/ENSAI 1A/projet_info/codes/donnees/2013-01.json.gz")
-#print(tab2.donnees[0:6])
-#print(len(tab2.donnees[0]))
