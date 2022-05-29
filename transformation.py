@@ -12,7 +12,7 @@ class Transformation() :
     ---------
         table : Table
             table que l'on souhaite estimer/modifier
-        varialbes : list
+        variables : list
             liste des variables sur lesquelles ont souhaite appliquer les méthodes
     """
     
