@@ -1,16 +1,17 @@
 from estimation import Estimation
+from table import Table
 import statistics
 
 class Statistique(Estimation):
     """Correspond à une statistique d'une ou plusieurs variables d'une table
-    (moyenne, médiane, variance, ecart_tyoe)"""
+    (moyenne, médiane, variance, ecart_type)"""
 
-    def __init__(self, table, variables):
+    def __init__(self, table, variables, arrondi=2):
         """ Constructeur """
-        super().__init__(table, variables)
+        Estimation.__init__(self, table, variables, arrondi)
 
 
-    def estime(self, stat, a, manquante):
+    def estime(self, stat):
         """ Calcule la statistique de(s) la (les) variables considérées 
         stat peut prendre les valeurs suivantes : 'moyenne', 'mediane', 'variance'
         
@@ -18,16 +19,17 @@ class Statistique(Estimation):
         ----------
         stat : str
             nom de la statistique à appliquer
-        a : int
-            précision de la statistique retournée
-        manquante : str
-            format des données manquantes (ex : 'NA', 'mq')
 
         Returns
         -------
         res : [float]
             resultat de la statistique calculee
             """
+
+        if len(self.variables) == 0 or stat not in ('moyenne','mediane','variance'):
+            print("Erreur : il faut au moins 1 variable pour calculer 1 statistique donnée ('moyenne','mediane','variance')")
+            return None  
+
         colonnes = []
         res = []
         n = len(self.table.donnees) # nombre de lignes de la table
@@ -40,25 +42,39 @@ class Statistique(Estimation):
                 sum = 0
                 t = 0
                 for k in range(1,n):
-                    if self.table.donnees[k][c] != manquante :
+                    if self.table.donnees[k][c] != 'NA' :
                         sum += float(self.table.donnees[k][c])
                         t += 1 # nombre de valeurs non manquantes
-                res.append(round(sum/t,a))
+                res.append(round(sum/t,self.arrondi))
 
             elif stat == 'mediane' :
                 for k in range(1,n) : # pour toutes les données (pour chaque ligne)
-                    if self.table.donnees[k][c] != manquante : # on ne prend pas les valeurs manquantes
-                        valeurs.append(float(self.table.donnees[k][c]))
+                    if self.table.donnees[k][c] != 'NA' : # on ne prend pas les valeurs manquantes
+                        valeurs.append(self.table.donnees[k][c])
                 valeurs.sort() # liste de toutes les valeurs de la variable de la colonne j
                 if len(valeurs)%2 != 0 : # nombre impair de valeurs
                     mediane = valeurs[int((len(valeurs)-1)/2)]
                 else : # nombre pair de valeurs
                     mediane = (valeurs[int((len(valeurs)/2)-1)] + valeurs[int(len(valeurs)/2)])/ 2
-                res.append(round(mediane,a))
+                res.append(round(mediane,self.arrondi))
 
             elif stat == 'variance' :
                 for k in range(1,n) : # pour toutes les lignes de cette variable
-                    if self.table.donnees[k][c] != manquante : # on ne prend pas les valeurs manquantes
-                        valeurs.append(float(self.table.donnees[k][c]))
-                res.append(round(statistics.pvariance(valeurs),a))
+                    if self.table.donnees[k][c] != 'NA' : # on ne prend pas les valeurs manquantes
+                        valeurs.append(self.table.donnees[k][c])
+                res.append(round(statistics.pvariance(valeurs),self.arrondi))
         return res
+
+
+test = Table([["var1","var2","var3","var4"],
+              [5,"oui","NA",76],
+              [8,"non",87,67.9],
+              [4,"oui",2.9,56],
+              [3,"non",66,78.9],
+              [9,"oui",25,"NA"],
+              [8,"non",7.9,13.6]])
+
+est2 = Statistique(test,["var4","var1"])
+essai = est2.estime('medianne')
+
+print(essai)

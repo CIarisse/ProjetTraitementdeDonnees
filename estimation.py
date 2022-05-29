@@ -20,7 +20,7 @@ class Estimation(ABC):
     --------
     """
 
-    def __init__(self, table, variables):
+    def __init__(self, table, variables, arrondi):
         """ constructeur 
         
         Parameters
@@ -32,6 +32,7 @@ class Estimation(ABC):
         """
         self.table = table
         self.variables = variables
+        self.arrondi = arrondi
 
     @abstractmethod
     def estime():

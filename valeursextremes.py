@@ -1,4 +1,5 @@
 from estimation import Estimation
+from table import Table
 import statistics
 
 class ValeursExtremes(Estimation):
@@ -6,12 +7,12 @@ class ValeursExtremes(Estimation):
     
     Les données seront soit supprimées, soit remplacées par la VAI ou VAS"""
 
-    def __init__(self, table, variables):
+    def __init__(self, table, variables, arrondi = 2):
         """Constructeur"""
-        super().__init__(table, variables)
+        Estimation.__init__(self,table, variables, arrondi)
 
     
-    def estime(self, methode, a, manquante):
+    def estime(self, methode):
         """Remplace les valeurs extrêmes
         
         Remplace les valeurs supérieures à Q3+1.5(Q3-Q1) par cette valeur,
@@ -23,17 +24,15 @@ class ValeursExtremes(Estimation):
         methode : str
             méthode à utiliser pour gérer les valeurs extrêmes
 
-        a : int
-            précision de la valeur de remplacement
-
-        manquante : str
-            format des données manquantes (ex : 'mq', 'NA')
-
         Returns
         -------
         sortie : Table
             table dont les valeurs extrêmes ont été traitées pour les variables considérées
         """
+        if len(self.variables) == 0 or methode not in ('extremes','suppression'):
+            print("Erreur : il faut au moins 1 variable pour traiter avec 1 méthode donnée ('extremes','suppression')")
+            return None 
+
 
         sortie = self.table.donnees # copie de la table : c'est cette copie qui sera modifiée
         colonnes = []
@@ -46,31 +45,68 @@ class ValeursExtremes(Estimation):
 
             if methode == 'extremes':
                 for k in range(1,n):
-                    if self.table.donnees[k][c] != manquante :
-                        valeurs.append(float(self.table.donnees[k][c]))
-                q1 = round(statistics.quantiles(valeurs)[0],a) # valeur du premier quartile
-                q3 = round(statistics.quantiles(valeurs)[2],a) # valeurs du troisième quartile
-                inf = q1-1.5*(q3-q1)
-                sup = q3+1.5*(q3-q1)
+                    if self.table.donnees[k][c] != 'NA' :
+                        valeurs.append(self.table.donnees[k][c])
+                q1 = round(statistics.quantiles(valeurs)[0],self.arrondi) # valeur du premier quartile
+                q3 = round(statistics.quantiles(valeurs)[2],self.arrondi) # valeurs du troisième quartile
+                inf = round(q1-1.5*(q3-q1),self.arrondi)
+                sup = round(q3+1.5*(q3-q1),self.arrondi)
                 for l in range(1,n) : # retour aux données de la table 'sortie' en parcourant ses lignes
-                    if sortie[l][c] != manquante :
-                        if float(sortie[l][c]) < inf :
+                    if sortie[l][c] != 'NA' :
+                        if sortie[l][c] < inf :
                             sortie[l][c] = inf
-                        elif float(sortie[l][c]) > sup :
+                        elif sortie[l][c] > sup :
                             sortie[l][c] = sup
 
             if methode == 'suppression':
                 for k in range(1,n):
-                    if self.table.donnees[k][c] != manquante :
-                        valeurs.append(float(self.table.donnees[k][c]))
-                q1 = round(statistics.quantiles(valeurs)[0],a) # valeur du premier quartile
-                q3 = round(statistics.quantiles(valeurs)[2],a) # valeurs du troisième quartile
-                inf = q1-1.5*(q3-q1)
-                sup = q3+1.5*(q3-q1)
+                    if self.table.donnees[k][c] != 'NA' :
+                        valeurs.append(self.table.donnees[k][c])
+                q1 = round(statistics.quantiles(valeurs)[0],self.arrondi) # valeur du premier quartile
+                q3 = round(statistics.quantiles(valeurs)[2],self.arrondi) # valeurs du troisième quartile
+                inf = round(q1-1.5*(q3-q1),self.arrondi)
+                sup = round(q3+1.5*(q3-q1),self.arrondi)
+
+
                 i = 1
-                while i < len(sortie) and sortie[i][c] != manquante :
-                    if float(sortie[i][c]) < 10 or float(sortie[i][c]) > 100 :
-                        del sortie[i]
+                while i < len(sortie):
+                    if sortie[i][c] != 'NA' :
+                        if sortie[i][c] < inf or sortie[i][c] > sup :
+                            del sortie[i]
+                        else:
+                            i += 1
                     else :
                         i += 1
-        return sortie
+                    
+        return Table(sortie)
+
+
+test = Table([["var1","var2","var3","var4"],
+              [5,"oui","NA",76],
+              [8,"non",100000, 67.9],
+              [4,"oui",2.9, 56],
+              [3,"non",6.36, 78.9],
+              [9,"oui",2.5, "NA"],
+              [8,"non",7.9, 13.6],
+              [4,"oui",2.9, 56],
+              [3,"non",6.36, 78.9],
+              [9,"oui",2.5, "NA"],
+              [8,"non",7.9, 13.6],
+              [4,"oui",2.9, 56],
+              [3,"non",6.36, 78.9],
+              [9,"oui",2.5, "NA"],
+              [8,"non",7.9, 13.6],
+              [4,"oui",2.9, 56],
+              [3,"non",6.36, 78.9],
+              [9,"oui",2.5, "NA"],
+              [8,"non",7.9, 13.6],
+              [4,"oui",2.9, 56],
+              [3,"non",6.36, 78.9],
+              [9,"oui",2.5, "NA"],
+              [8,"non",7.9, 13.6]])
+
+print(test.donnees)
+est2 = ValeursExtremes(test,["var3"])
+essai = est2.estime('suppression')
+
+print(test.donnees)

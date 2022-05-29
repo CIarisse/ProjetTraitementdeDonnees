@@ -1,7 +1,7 @@
 from table import Table
 from transformation import Transformation
 
-class selectionVa(Transformation) :
+class SelectionVa(Transformation) :
     def __init__(self, table, variables):
         Transformation.__init__(self, table, variables)
 
@@ -28,7 +28,7 @@ test = Table([["var1","var2","var3","var4"],
               ["4","oui","2.9","97"]])
 transf = Transformation(test,["var2"])
 print(transf.table.donnees)
-selvar = selectionVa(test, ["var4","var2"])
+selvar = SelectionVa(test, ["var4","var2"])
 print(selvar.table.donnees)
 res = selvar.transforme()
 print(res.donnees)
