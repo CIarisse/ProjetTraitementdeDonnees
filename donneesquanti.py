@@ -24,7 +24,7 @@ class DonneesQuanti(Transformation) :
               [3,"non",66,78.9],
               [9,"oui",25,"NA"],
               [8,"non",7.9,13.6]]
-    >>> d = DonneesQuanti(t, ['var1'], 4, 6)
+    >>> d = DonneesQuanti(t, ['var1'], 3, 6)
     >>> print(d.transforme())
     [["var1","var2","var3","var4"],
               [5,"oui","NA",76],
@@ -54,15 +54,3 @@ class DonneesQuanti(Transformation) :
                     except ValueError:
                         continue     
         return nouvelle_table
-
-
-test = Table([["var1","var2","var3","var4"],
-              ["5","oui","NA","NA"],
-              ["8","non","87","NA"],
-              ["4","oui","2.9","97"]])
-transf = Transformation(test,["var2"])
-print(transf.table.donnees)
-doquanti = DonneesQuanti(test, ["var4"], 75, 100)
-print(doquanti.table.donnees)
-res = doquanti.transforme()
-print(res.donnees)
