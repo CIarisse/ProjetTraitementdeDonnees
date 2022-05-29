@@ -4,7 +4,6 @@
 from table import Table
 from estimation import Estimation
 from transformation import Transformation
-
 from centrage import Centrage
 from donneesmanquantes import DonneesManquantes
 from donneesquali import DonneesQuali
