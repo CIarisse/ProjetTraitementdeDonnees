@@ -17,7 +17,7 @@ class SelectionVa(Transformation) :
               [5,"oui","NA",76],
               [8,"non",87,67.9],
               [4,"oui",2.9,56],
-              [3,"non",66,78.9]]
+              [3,"non",66,78.9]])
     >>> s = SelectionVa(t,['var1','var4'])
     >>> print(s.transforme().donnees)
     [["var1","var4"],

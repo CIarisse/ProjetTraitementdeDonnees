@@ -16,19 +16,19 @@ class Jointure(Transformation) :
     Example
     -------
     >>> t =  Table([["var1","var2","var3","var4"],
-            ["5","oui","NA","NA"],
-            ["8","non","87","NA"],
-            ["4","oui","2.9","97"]])
+            [5,"oui","NA","NA"],
+            [8,"non",87,"NA"],
+            [4,"oui",2.9,97]])
     >>> t2 = Table([["var3","var5","var6","var7"],
-            ["NA","oui","NA","87"],
-            ["87","oui","87","35"],
-            ["2.9","non","65","93"]])
+            ["NA","oui","NA",87],
+            [87,"oui",87,35],
+            [2.9,"non",65,93]])
     >>> d = Jointure(t, ['var3'], t2)
     >>> print(d.transforme().donnees)
     [['var1', 'var2', 'var3', 'var4', 'var5', 'var6', 'var7'], 
-        ['5', 'oui', 'NA', 'NA', 'oui', 'NA', '87'], 
-        ['8', 'non', '87', 'NA', 'oui', '87', '35'], 
-        ['4', 'oui', '2.9', '97', 'non', '65', '93']]
+        [5, 'oui', 'NA', 'NA', 'oui', 'NA', 87], 
+        [8, 'non', 87, 'NA', 'oui', 87, 35], 
+        [4, 'oui', 2.9, 97, 'non', 65, 93]]
     """
     def __init__(self, table, variables, table2):
         """Constructeur"""
@@ -88,4 +88,3 @@ class Jointure(Transformation) :
             return None
 
         return nouvelle_table
-

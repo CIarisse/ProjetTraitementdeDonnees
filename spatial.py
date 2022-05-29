@@ -16,14 +16,17 @@ class Spatial(Transformation) :
 
     Example
     -------
-    >>> t = Table([["var1","var2","var3","var4"],
-              ["5","oui","NA","NA"],
-              ["8","non","87","NA"],
-              ["4","oui","2.9","97"]])
+    >>> t = Table([['var1', 'var2', 'var3', 'var4'], 
+                    [5, 'oui', 'NA', 76], 
+                    [8, 'non', 87, 67.9], 
+                    [4, 'oui', 2.9, 56], 
+                    [3, 'non', 66, 78.9], 
+                    [9, 'oui', 25, 'NA'], 
+                    [8, 'non', 7.9, 13.6]])
     >>> s = Spatial(t)
     >>> print(s.transforme().donnees)
     [['var1', 'var2', 'var3', 'var4'], 
-     [5.67, 'NA', 44.95, 97.0]]
+     [5.67, 'NA', 44.95, 97]]
     
     """
     
@@ -48,7 +51,7 @@ class Spatial(Transformation) :
             for j in range(len(self.table.donnees)): #on parcourt les lignes
                 try:
                     float(self.table.donnees[j][i])
-                    temp.append(float(self.table.donnees[j][i]))
+                    temp.append(self.table.donnees[j][i])
                 except ValueError:
                     continue     
             if len(temp) != 0 :
@@ -57,4 +60,3 @@ class Spatial(Transformation) :
                 nouvelle_table.donnees[1][i] = 'NA'
             temp = []
         return nouvelle_table
-

@@ -17,7 +17,7 @@ class NomVariable(Transformation) :
     -------
     >>> t = Table([["var1","var2","var3","var4"],
               [5,"oui","NA",76],
-              [8,"non",87,67.9]]
+              [8,"non",87,67.9]])
     >>> n = NomVariable(t,['var1','var3'],['A','C'])
     >>> print(n.transforme().donnees)
     [["A,"var2","C","var4"],

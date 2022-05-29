@@ -57,9 +57,7 @@ class DonneesQuanti(Transformation) :
         for i in range(len(self.table.donnees[0])): #on parcourt le nom des variables de Table
             if self.variables[0] == self.table.donnees[0][i]: #si on retrouve le nom de la variable dans Table
                 for j in range(1,len(self.table.donnees)): #on parcourt les lignes
-                    try:
-                        if float(self.table.donnees[j][i]) < self.borne_sup and float(self.table.donnees[j][i]) > self.borne_inf: #si valeur dans notre colonne est bien dans bornes demandees
-                            nouvelle_table.donnees.append(self.table.donnees[j]) #ajout de la ligne avec la bonne valeur
-                    except ValueError:
-                        continue     
+                    if self.table.donnees[j][i] != 'NA' : 
+                        if self.table.donnees[j][i] < self.borne_sup and self.table.donnees[j][i] > self.borne_inf: #si valeur dans notre colonne est bien dans bornes demandees
+                            nouvelle_table.donnees.append(self.table.donnees[j]) #ajout de la ligne avec la bonne valeur            
         return nouvelle_table

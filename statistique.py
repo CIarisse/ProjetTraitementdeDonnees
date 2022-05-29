@@ -66,7 +66,7 @@ class Statistique(Estimation):
                 t = 0
                 for k in range(1,n):
                     if self.table.donnees[k][c] != 'NA' :
-                        sum += float(self.table.donnees[k][c])
+                        sum += self.table.donnees[k][c]
                         t += 1 # nombre de valeurs non manquantes
                 res.append(round(sum/t,self.arrondi))
 
