@@ -5,6 +5,16 @@ from transformation import Transformation
 
 
 class Spatial(Transformation) :
+    """Classe qui permet, via la méthode transforme, de passer de données régionales à des données natinales
+    
+    Attributes
+    ----------
+        table : Table
+        ensemble des données en liste de listes
+    variables : list=[]
+        liste des noms des variales à considérer
+    """
+    
     def __init__(self,table,variables=[]):
         Transformation.__init__(self, table, variables)
 
