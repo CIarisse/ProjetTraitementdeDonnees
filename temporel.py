@@ -4,7 +4,22 @@ from datetime import datetime
 
 
 class Temporel(Transformation) :
+    """Classe qui permettra de sélectionner des données comprises entre deux dates
+    
+    Attributes
+    ----------
+    table : Table
+        ensemble des données en liste de listes
+    variables : list
+        liste des noms des variales à considérer
+    date_debut : date
+        borne inférieure des dates à conserver
+    date_fin : date
+        borne supérieure des dates à conserver
+    """
+    
     def __init__(self, table, variables, date_debut, date_fin):
+        """Constructeur"""
         Transformation.__init__(self, table, variables)
         self.date_debut = date_debut
         self.date_fin = date_fin
