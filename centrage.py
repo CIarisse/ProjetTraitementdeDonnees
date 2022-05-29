@@ -80,16 +80,3 @@ class Centrage(Estimation):
                     sortie[i][c] = round((sortie[i][c]-moy)/sd,self.arrondi)
 
         return Table(sortie)
-
-test = Table([["var1","var2","var3","var4"],
-              [5,"oui","NA",76],
-              [8,"non",87,67.9],
-              [4,"oui",2.9,56],
-              [3,"non",66,78.9],
-              [9,"oui",25,"NA"],
-              [8,"non",7.9,13.6]])
-
-est2 = Centrage(test,["var4"])
-essai = est2.estime('norcmer')
-
-print(est2.table.donnees)
