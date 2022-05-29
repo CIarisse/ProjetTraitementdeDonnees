@@ -52,16 +52,3 @@ class DonneesQuali(Transformation) :
         return nouvelle_table
 
 
-test = Table([["var1","var2","var3","var4"],
-              ["5","oui","NA","76"],
-              ["8","non","87","67.9"],
-              ["4","oui","2.9","NA"]])
-transf = Transformation(test,["var2"])
-print(transf.table.donnees)
-doquali = DonneesQuali(test, ["var2"], ["oui"])
-print(doquali.table.donnees)
-res = doquali.transforme()
-print(res.donnees)
-
-
-
