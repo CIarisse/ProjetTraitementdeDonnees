@@ -18,15 +18,15 @@ class Statistique(Estimation):
     Example
     -------
     >>> t = Table([["var1","var2","var3","var4"],
-              [5,"oui","NA",76],
-              [8,"non",87,67.9],
-              [4,"oui",2.9,56],
-              [3,"non",66,78.9],
-              [9,"oui",25,"NA"],
-              [8,"non",7.9,13.6]])
+    ...          [5,"oui","NA",76],
+    ...          [8,"non",87,67.9],
+    ...          [4,"oui",2.9,56],
+    ...          [3,"non",66,78.9],
+    ...          [9,"oui",25,"NA"],
+    ...          [8,"non",7.9,13.6]])
     >>> s = Statistique(t,['var1','var3'])
     >>> print(s.estime('moyenne'))
-    [6.17,37.76]    
+    [6.17, 37.76]
     """
 
     def __init__(self, table, variables, arrondi=2):
@@ -87,3 +87,8 @@ class Statistique(Estimation):
                         valeurs.append(self.table.donnees[k][c])
                 res.append(round(statistics.pvariance(valeurs),self.arrondi))
         return res
+
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()

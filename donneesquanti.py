@@ -18,17 +18,15 @@ class DonneesQuanti(Transformation) :
     Example
     -------
     >>> t = Table([["var1","var2","var3","var4"],
-              [5,"oui","NA",76],
-              [8,"non",87,67.9],
-              [4,"oui",2.9,56],
-              [3,"non",66,78.9],
-              [9,"oui",25,"NA"],
-              [8,"non",7.9,13.6]])
+    ...          [5,"oui","NA",76],
+    ...          [8,"non",87,67.9],
+    ...          [4,"oui",2.9,56],
+    ...          [3,"non",66,78.9],
+    ...          [9,"oui",25,"NA"],
+    ...          [8,"non",7.9,13.6]])
     >>> d = DonneesQuanti(t, ['var1'], 3, 6)
     >>> print(d.transforme().donnees)
-    [["var1","var2","var3","var4"],
-              [5,"oui","NA",76],
-              [4,"oui",2.9,56]]
+    [['var1', 'var2', 'var3', 'var4'], [5, 'oui', 'NA', 76], [4, 'oui', 2.9, 56]]
     """
     
     def __init__(self, table, variables, borne_inf, borne_sup):
@@ -61,3 +59,7 @@ class DonneesQuanti(Transformation) :
                         if self.table.donnees[j][i] < self.borne_sup and self.table.donnees[j][i] > self.borne_inf: #si valeur dans notre colonne est bien dans bornes demandees
                             nouvelle_table.donnees.append(self.table.donnees[j]) #ajout de la ligne avec la bonne valeur            
         return nouvelle_table
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()

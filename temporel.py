@@ -20,13 +20,12 @@ class Temporel(Transformation) :
     Example
     -------
     >>> t = Table([['var1', 'var2', 'var3', 'var4'], 
-                    [20220526150000, 'oui', 'NA', 'NA'], 
-                    [20220529180000, 'non', '87', 'NA'], 
-                    [20220613140000, 'oui', '2.9', '97']])
+    ...                [20220526150000, 'oui', 'NA', 'NA'], 
+    ...                [20220529180000, 'non', '87', 'NA'], 
+    ...                [20220613140000, 'oui', '2.9', '97']])
     >>> d = Temporel(t, ["var1"], datetime(2022,5,27), datetime(2022,6,10))
     >>> print(d.transforme('%Y%m%d%H%M%S').donnees)
-    [['var1', 'var2', 'var3', 'var4'], 
-     [20220529180000, 'non', '87', 'NA']]
+    [['var1', 'var2', 'var3', 'var4'], [20220529180000, 'non', '87', 'NA']]
         
     """
     
@@ -66,3 +65,6 @@ class Temporel(Transformation) :
                         nouvelle_table.donnees.append(self.table.donnees[j]) #ajout de la ligne avec la bonne valeur
         return nouvelle_table
 
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()

@@ -14,17 +14,13 @@ class SelectionVa(Transformation) :
     Example
     -------
     >>> t = Table([["var1","var2","var3","var4"],
-              [5,"oui","NA",76],
-              [8,"non",87,67.9],
-              [4,"oui",2.9,56],
-              [3,"non",66,78.9]])
+    ...          [5,"oui","NA",76],
+    ...          [8,"non",87,67.9],
+    ...          [4,"oui",2.9,56],
+    ...          [3,"non",66,78.9]])
     >>> s = SelectionVa(t,['var1','var4'])
     >>> print(s.transforme().donnees)
-    [["var1","var4"],
-        [5,76],
-        [8,67.9],
-        [4,56],
-        [3,78.9]]
+    [['var1', 'var4'], [5, 76], [8, 67.9], [4, 56], [3, 78.9]]
     
     """
     
@@ -54,3 +50,8 @@ class SelectionVa(Transformation) :
                         nouvelle_table.donnees[k].append(self.table.donnees[k][j]) 
                 
         return nouvelle_table
+
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()

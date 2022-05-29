@@ -15,17 +15,17 @@ class Table():
     Examples
     --------
     >>> test = Table([["var1","var2","var3","var4"],
-                        [5,"oui","NA",76],
-                        [8,"non",87,67.9],
-                        [4,"oui",2.9,56],
-                        [3,"non",66,78.9],
-                        [9,"oui",25,"NA"],
-                        [8,"non",7.9,13.6]])
+    ...                    [5,"oui","NA",76],
+    ...                    [8,"non",87,67.9],
+    ...                    [4,"oui",2.9,56],
+    ...                    [3,"non",66,78.9],
+    ...                    [9,"oui",25,"NA"],
+    ...                    [8,"non",7.9,13.6]])
     >>> test.export("D:/Documents/Ecole/ENSAI 1A/projet_info/codes/donnees","test_export")
     >>> nveau = Table()
     >>> nveau.importcsv("D:/Documents/Ecole/ENSAI 1A/projet_info/codes/donnees/test_export.csv",'NA')
     >>> print(nveau.donnees)
-    
+    [['var1', 'var2', 'var3', 'var4'], [5, 'oui', 'NA', 76], [8, 'non', 87, 67.9], [4, 'oui', 2.9, 56], [3, 'non', 66, 78.9], [9, 'oui', 25, 'NA'], [8, 'non', 7.9, 13.6]]
     '''
     def __init__(self, donnees = []):
         ''' Création d'une table grâce aux données
@@ -50,10 +50,10 @@ class Table():
 
         Examples
         --------
-        >>> tab = Table()
-        >>> tab.importcsv("D:\Documents\Ecole\ENSAI 1A\projet_info\codes\donnees\synop.201301.csv",'mq')
-        >>> print(tab.donnees[0:6])
-            
+        >>> nveau = Table()
+        >>> nveau.importcsv("D:/Documents/Ecole/ENSAI 1A/projet_info/codes/donnees/test_export.csv",'NA')
+        >>> print(nveau.donnees)
+        [['var1', 'var2', 'var3', 'var4'], [5, 'oui', 'NA', 76], [8, 'non', 87, 67.9], [4, 'oui', 2.9, 56], [3, 'non', 66, 78.9], [9, 'oui', 25, 'NA'], [8, 'non', 7.9, 13.6]]
         '''
         data = []
         with open(chemin, mode='rt', encoding='utf-8') as csvfile :
@@ -95,7 +95,7 @@ class Table():
         >>> tab2 = Table()
         >>> tab2.importjson("D:/Documents/Ecole/ENSAI 1A/projet_info/codes/donnees/2013-01.json.gz")
         >>> print(tab2.donnees[0:6])
-    
+        [['code_insee_region', 'date', 'region', 'date_heure', 'heure', 'consommation_brute_gaz_terega', 'statut_terega', 'consommation_brute_electricite_rte', 'statut_rte', 'consommation_brute_gaz_grtgaz', 'consommation_brute_totale', 'consommation_brute_gaz_totale', 'statut_grtgaz'], [24, '2013-01-01', 'Centre-Val de Loire', '2013-01-01T00:00:00+01:00', '00:00', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA'], [75, '2013-01-01', 'Nouvelle-Aquitaine', '2013-01-01T00:00:00+01:00', '00:00', 1775, 'Définitif', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA'], [11, '2013-01-01', 'Île-de-France', '2013-01-01T00:30:00+01:00', '00:30', 'NA', 'NA', 9134, 'Définitif', 'NA', 'NA', 'NA', 'NA'], [24, '2013-01-01', 'Centre-Val de Loire', '2013-01-01T00:30:00+01:00', '00:30', 'NA', 'NA', 2476, 'Définitif', 'NA', 'NA', 'NA', 'NA'], [76, '2013-01-01', 'Occitanie', '2013-01-01T00:30:00+01:00', '00:30', 'NA', 'NA', 5228, 'Définitif', 'NA', 'NA', 'NA', 'NA']]
         """
         # Dossier où se trouve le fichier :
         with gzip.open(chemin, mode = "rt", encoding = "utf-8") as gzfile:
@@ -152,12 +152,12 @@ class Table():
         Examples
         --------
         >>> test = Table([["var1","var2","var3","var4"],
-                            [5,"oui","NA",76],
-                            [8,"non",87,67.9],
-                            [4,"oui",2.9,56],
-                            [3,"non",66,78.9],
-                            [9,"oui",25,"NA"],
-                            [8,"non",7.9,13.6]])
+        ...                    [5,"oui","NA",76],
+        ...                    [8,"non",87,67.9],
+        ...                    [4,"oui",2.9,56],
+        ...                    [3,"non",66,78.9],
+        ...                    [9,"oui",25,"NA"],
+        ...                    [8,"non",7.9,13.6]])
         >>> test.export("D:/Documents/Ecole/ENSAI 1A/projet_info/codes/donnees","test_export")
         """
         resultat=[]
@@ -167,3 +167,6 @@ class Table():
             sortie = csv.writer(csvfile,delimiter=';')
             sortie.writerows(resultat)
         
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()

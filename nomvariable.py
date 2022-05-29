@@ -16,13 +16,11 @@ class NomVariable(Transformation) :
     Example
     -------
     >>> t = Table([["var1","var2","var3","var4"],
-              [5,"oui","NA",76],
-              [8,"non",87,67.9]])
+    ...          [5,"oui","NA",76],
+    ...          [8,"non",87,67.9]])
     >>> n = NomVariable(t,['var1','var3'],['A','C'])
     >>> print(n.transforme().donnees)
-    [["A,"var2","C","var4"],
-              [5,"oui","NA",76],
-              [8,"non",87,67.9]]
+    [['A', 'var2', 'C', 'var4'], [5, 'oui', 'NA', 76], [8, 'non', 87, 67.9]]
     
     
     """
@@ -46,3 +44,6 @@ class NomVariable(Transformation) :
                     nouvelle_table.donnees[0][j] = self.nouveau_nom[i] #on modifie le nom
         return nouvelle_table
 
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()

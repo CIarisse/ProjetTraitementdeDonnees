@@ -17,21 +17,15 @@ class Centrage(Estimation):
     Example
     ------
     >>> t = Table([["var1","var2","var3","var4"],
-              [5,"oui","NA",76],
-              [8,"non",87,67.9],
-              [4,"oui",2.9,56],
-              [3,"non",66,78.9],
-              [9,"oui",25,"NA"],
-              [8,"non",7.9,13.6]])
-    >>> c = Centrage(t, ['var4'])
+    ...          [5,"oui","NA",76],
+    ...          [8,"non",87,67.9],
+    ...          [4,"oui",2.9,56],
+    ...          [3,"non",66,78.9],
+    ...          [9,"oui",25,"NA"],
+    ...          [8,"non",7.9,13.6]])
+    >>> c = Centrage(t, ["var4"])
     >>> print(c.estime('centrer').donnees)
-    [["var1","var2","var3","var4"],
-              [5,"oui","NA",17.52],
-              [8,"non",87,9.42,
-              [4,"oui",2.9,-2.48],
-              [3,"non",66,20.42],
-              [9,"oui",25,"NA"],
-              [8,"non",7.9,-44.88]]’
+    [['var1', 'var2', 'var3', 'var4'], [5, 'oui', 'NA', 17.52], [8, 'non', 87, 9.42], [4, 'oui', 2.9, -2.48], [3, 'non', 66, 20.42], [9, 'oui', 25, 'NA'], [8, 'non', 7.9, -44.88]]
     """
 
     def __init__(self, table, variables, arrondi = 2):
@@ -71,8 +65,6 @@ class Centrage(Estimation):
                     valeurs.append(self.table.donnees[k][c]) # ensemble des valeurs non manquantes de la valeur considérée
             moy = statistics.mean(valeurs)
             sd = statistics.stdev(valeurs)
-            print(moy)
-            print(sd)
             for i in range(1,n) :
                 if methode == 'centrer' and sortie[i][c] != 'NA': 
                     sortie[i][c] = round(sortie[i][c]-moy,self.arrondi)
@@ -80,3 +72,8 @@ class Centrage(Estimation):
                     sortie[i][c] = round((sortie[i][c]-moy)/sd,self.arrondi)
 
         return Table(sortie)
+
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()

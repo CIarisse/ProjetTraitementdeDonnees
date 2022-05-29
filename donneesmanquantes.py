@@ -16,20 +16,15 @@ class DonneesManquantes(Estimation):
     Example
     ------
     >>> t = Table([["var1","var2","var3","var4"],
-              [5,"oui","NA",76],
-              [8,"non",87,67.9],
-              [4,"oui",2.9,56],
-              [3,"non",66,78.9],
-              [9,"oui",25,"NA"],
-              [8,"non",7.9,13.6]])
-    >>> d = DonneesManquante(t,['var4'])
+    ...          [5,"oui","NA",76],
+    ...          [8,"non",87,67.9],
+    ...          [4,"oui",2.9,56],
+    ...          [3,"non",66,78.9],
+    ...          [9,"oui",25,"NA"],
+    ...          [8,"non",7.9,13.6]])
+    >>> d = DonneesManquantes(t,['var4'])
     >>> print(d.estime('suppression').donnees)
-    [["var1","var2","var3","var4"],
-              [5,"oui","NA",76],
-              [8,"non",87,67.9],
-              [4,"oui",2.9,56],
-              [3,"non",66,78.9],
-              [8,"non",7.9,13.6]]
+    [['var1', 'var2', 'var3', 'var4'], [5, 'oui', 'NA', 76], [8, 'non', 87, 67.9], [4, 'oui', 2.9, 56], [3, 'non', 66, 78.9], [8, 'non', 7.9, 13.6]]
     
     """
 
@@ -100,3 +95,8 @@ class DonneesManquantes(Estimation):
                         i += 1
 
         return Table(sortie)
+
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()

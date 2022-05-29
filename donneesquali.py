@@ -16,19 +16,15 @@ class DonneesQuali(Transformation) :
     Example
     -------
     >>> t = Table([["var1","var2","var3","var4"],
-              [5,"oui","NA",76],
-              [8,"non",87,67.9],
-              [4,"oui",2.9,56],
-              [3,"non",66,78.9],
-              [9,"oui",25,"NA"],
-              [8,"non",7.9,13.6]])
-    >>> d = DonneesQuali(t, ['var2'], "oui")
+    ...          [5,"oui","NA",76],
+    ...          [8,"non",87,67.9],
+    ...          [4,"oui",2.9,56],
+    ...          [3,"non",66,78.9],
+    ...          [9,"oui",25,"NA"],
+    ...          [8,"non",7.9,13.6]])
+    >>> d = DonneesQuali(t, ['var2'], ["oui"])
     >>> print(d.transforme().donnees)
-    [["var1","var2","var3","var4"],
-              [5,"oui","NA",76],
-              [4,"oui",2.9,56],
-              [9,"oui",25,"NA"]]
-    
+    [['var1', 'var2', 'var3', 'var4'], [5, 'oui', 'NA', 76], [4, 'oui', 2.9, 56], [9, 'oui', 25, 'NA']]
     
     """
     def __init__(self, table, variables, valeurs):
@@ -63,3 +59,6 @@ class DonneesQuali(Transformation) :
                             nouvelle_table.donnees.append(self.table.donnees[j]) #ajout de la ligne avec la bonne valeur
         return nouvelle_table
 
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()

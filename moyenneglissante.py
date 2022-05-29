@@ -25,7 +25,7 @@ def extrait(liste, milieu, taille):
     ------
     >>> l = [1,2,1,3,4,5,6,7]
     >>> print(extrait(l, 2, 3))
-    [2,1,3] 
+    [2, 1, 3]
     """
     if taille % 2 != 0 : # si taille impaire
         sortie = liste[int(max(0,milieu-((taille-1)/2))) : int(min(milieu+((taille-1)/2),len(liste))+1)]
@@ -51,21 +51,15 @@ class MoyenneGlissante(Estimation):
     Example
     -------
     >>> t = Table([["var1","var2","var3","var4"],
-              [5,"oui","NA",76],
-              [8,"non",87,67.9],
-              [4,"oui",2.9,56],
-              [3,"non",66,78.9],
-              [9,"oui",25,"NA"],
-              [8,"non",7.9,13.6]])
+    ...          [5,"oui","NA",76],
+    ...          [8,"non",87,67.9],
+    ...          [4,"oui",2.9,56],
+    ...          [3,"non",66,78.9],
+    ...          [9,"oui",25,"NA"],
+    ...          [8,"non",7.9,13.6]])
     >>> d = MoyenneGlissante(t, ['var4'])
     >>> print(d.estime(3).donnees)
-    [['var1', 'var2', 'var3', 'var4', 'moygliss3'], 
-        [5, 'oui', 'NA', 76, 71.95], 
-        [8, 'non', 87, 67.9, 66.63], 
-        [4, 'oui', 2.9, 56, 67.6], 
-        [3, 'non', 66, 78.9, 67.45], 
-        [9, 'oui', 25, 'NA', 46.25], 
-        [8, 'non', 7.9, 13.6, 13.6]]
+    [['var1', 'var2', 'var3', 'var4', 'moygliss3'], [5, 'oui', 'NA', 76, 71.95], [8, 'non', 87, 67.9, 66.63], [4, 'oui', 2.9, 56, 67.6], [3, 'non', 66, 78.9, 67.45], [9, 'oui', 25, 'NA', 46.25], [8, 'non', 7.9, 13.6, 13.6]]
 
     '''
 
@@ -126,3 +120,6 @@ class MoyenneGlissante(Estimation):
                 sortie[p].append(moygliss[p-1])
         return Table(sortie)
 
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
