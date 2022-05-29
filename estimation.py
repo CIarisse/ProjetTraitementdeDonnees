@@ -13,11 +13,11 @@ class Estimation(ABC):
     ---------
         table : Table
             table que l'on souhaite estimer/modifier
-        varialbe : list
+        variables : list
             liste des variables sur lesquelles ont souhaite appliquer les méthodes
+        arrondi : int
+            précision de l'arrondi pour nos estimations
 
-    Examples
-    --------
     """
 
     def __init__(self, table, variables, arrondi):
@@ -29,6 +29,8 @@ class Estimation(ABC):
             table sur laquelle on travaille
         variables : list
             liste de variables sur lesquelles on travaille
+        arrondi : int
+            précision de l'arrondi pour nos estimations
         """
         self.table = table
         self.variables = variables
