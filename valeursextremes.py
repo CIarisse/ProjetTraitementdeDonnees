@@ -3,9 +3,17 @@ from table import Table
 import statistics
 
 class ValeursExtremes(Estimation):
-    """Calsse permettant de gérer les valeurs extrêmes.
+    """Classe permettant de gérer les valeurs extrêmes.
     
-    Les données seront soit supprimées, soit remplacées par la VAI ou VAS"""
+    Les données seront soit supprimées, soit remplacées par la Q3+1.5(Q3-Q1) ou Q1-1.5(Q3-Q1)
+    
+    Attributes
+    ----------
+    table : Table
+        table que l'on souhaite estimer/modifier
+    varialbe : list
+        liste des variables sur lesquelles ont souhaite appliquer les méthodes
+    """
 
     def __init__(self, table, variables, arrondi = 2):
         """Constructeur"""
