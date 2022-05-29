@@ -13,6 +13,34 @@ class ValeursExtremes(Estimation):
         table que l'on souhaite estimer/modifier
     variables : list
         liste des variables sur lesquelles ont souhaite appliquer les méthodes
+
+    Example
+    -------
+    >>> t = Table([["var1","var2","var3","var4"],
+              [5,"oui","NA",76],
+              [8,"non",100000, 67.9],
+              [4,"oui",2.9, 56],
+              [3,"non",6.36, 78.9],
+              [9,"oui",2.5, "NA"],
+              [8,"non",7.9, 13.6],
+              [4,"oui",2.9, 56],
+              [3,"non",6.36, 78.9],
+              [9,"oui",2.5, "NA"],
+              [8,"non",7.9, 13.6],
+              [4,"oui",2.9, 56]])
+    >>> d = ValeursExtremes(t, ['var3'])
+    >>> print(d.estime('suppression').donnees)
+    [['var1', 'var2', 'var3', 'var4'], 
+        [5, 'oui', 'NA', 76], 
+        [4, 'oui', 2.9, 56], 
+        [3, 'non', 6.36, 78.9], 
+        [9, 'oui', 2.5, 'NA'], 
+        [8, 'non', 7.9, 13.6], 
+        [4, 'oui', 2.9, 56], 
+        [3, 'non', 6.36, 78.9], 
+        [9, 'oui', 2.5, 'NA'], 
+        [8, 'non', 7.9, 13.6], 
+        [4, 'oui', 2.9, 56]]
     """
 
     def __init__(self, table, variables, arrondi = 2):
@@ -87,34 +115,3 @@ class ValeursExtremes(Estimation):
                         i += 1
                     
         return Table(sortie)
-
-
-test = Table([["var1","var2","var3","var4"],
-              [5,"oui","NA",76],
-              [8,"non",100000, 67.9],
-              [4,"oui",2.9, 56],
-              [3,"non",6.36, 78.9],
-              [9,"oui",2.5, "NA"],
-              [8,"non",7.9, 13.6],
-              [4,"oui",2.9, 56],
-              [3,"non",6.36, 78.9],
-              [9,"oui",2.5, "NA"],
-              [8,"non",7.9, 13.6],
-              [4,"oui",2.9, 56],
-              [3,"non",6.36, 78.9],
-              [9,"oui",2.5, "NA"],
-              [8,"non",7.9, 13.6],
-              [4,"oui",2.9, 56],
-              [3,"non",6.36, 78.9],
-              [9,"oui",2.5, "NA"],
-              [8,"non",7.9, 13.6],
-              [4,"oui",2.9, 56],
-              [3,"non",6.36, 78.9],
-              [9,"oui",2.5, "NA"],
-              [8,"non",7.9, 13.6]])
-
-print(test.donnees)
-est2 = ValeursExtremes(test,["var3"])
-essai = est2.estime('suppression')
-
-print(test.donnees)

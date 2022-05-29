@@ -19,12 +19,12 @@ class SelectionVa(Transformation) :
               [4,"oui",2.9,56],
               [3,"non",66,78.9]]
     >>> s = SelectionVa(t,['var1','var4'])
-    >>> print(s.transforme())
+    >>> print(s.transforme().donnees)
     [["var1","var4"],
-              [5,76],
-              [8,67.9],
-              [4,56],
-              [3,78.9]]
+        [5,76],
+        [8,67.9],
+        [4,56],
+        [3,78.9]]
     
     """
     
@@ -34,6 +34,13 @@ class SelectionVa(Transformation) :
         Transformation.__init__(self, table, variables)
 
     def transforme(self):
+        """Permet de sélectionner certaines colonnes par leur nom de variable
+
+        Returns
+        ------
+        nouvelle_table : Table
+            table modifiée avec uniquement les colonnes de variables attendues
+        """
         nouvelle_table=Table()
 
         for i in range(len(self.variables)): #on parcourt le nom des variables à sélectionner
@@ -47,17 +54,3 @@ class SelectionVa(Transformation) :
                         nouvelle_table.donnees[k].append(self.table.donnees[k][j]) 
                 
         return nouvelle_table
-
-        
-
-test = Table([["var1","var2","var3","var4"],
-              ["5","oui","NA","NA"],
-              ["8","non","87","NA"],
-              ["4","oui","2.9","97"]])
-transf = Transformation(test,["var2"])
-print(transf.table.donnees)
-selvar = SelectionVa(test, ["var4","var2"])
-print(selvar.table.donnees)
-res = selvar.transforme()
-print(res.donnees)
-           

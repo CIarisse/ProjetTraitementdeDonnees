@@ -24,7 +24,7 @@ class Centrage(Estimation):
               [9,"oui",25,"NA"],
               [8,"non",7.9,13.6]])
     >>> c = Centrage(t, ['var4'])
-    >>> print(c.estime('centrer'))
+    >>> print(c.estime('centrer').donnees)
     [["var1","var2","var3","var4"],
               [5,"oui","NA",17.52],
               [8,"non",87,9.42,

@@ -45,9 +45,9 @@ class Statistique(Estimation):
 
         Returns
         -------
-        res : list(float)
-            resultat de la statistique calculee
-            """
+        res : list[float]
+            resultats de la statistique calculee
+        """
 
         if len(self.variables) == 0 or stat not in ('moyenne','mediane','variance'):
             print("Erreur : il faut au moins 1 variable pour calculer 1 statistique donnée ('moyenne','mediane','variance')")
@@ -87,4 +87,3 @@ class Statistique(Estimation):
                         valeurs.append(self.table.donnees[k][c])
                 res.append(round(statistics.pvariance(valeurs),self.arrondi))
         return res
-

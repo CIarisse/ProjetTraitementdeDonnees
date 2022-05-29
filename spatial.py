@@ -13,15 +13,33 @@ class Spatial(Transformation) :
         ensemble des données en liste de listes
     variables : list=[]
         liste des noms des variales à considérer
+
+    Example
+    -------
+    >>> t = Table([["var1","var2","var3","var4"],
+              ["5","oui","NA","NA"],
+              ["8","non","87","NA"],
+              ["4","oui","2.9","97"]])
+    >>> s = Spatial(t)
+    >>> print(s.transforme().donnees)
+    [['var1', 'var2', 'var3', 'var4'], 
+     [5.67, 'NA', 44.95, 97.0]]
+    
     """
     
     def __init__(self,table,variables=[]):
+        """Constructeur"""
         Transformation.__init__(self, table, variables)
 
     def transforme(self):
-         #agrégation spatiale : passage régional au national
-        #fonction statistics.mean(liste) pour moyenne
+        """Permet d'effectuer une aggrégation spatiale en passant de données régionales (avec plusieurs lignes) à des 
+        données nationales (une seule ligne étant la moyenne des données régionales)
 
+        Returns
+        ------
+        nouvelle_table : Table
+            table modifiée avec une seule ligne correspondante à l'aggrégation nationale
+        """
         nouvelle_table = Table([[0]*len(self.table.donnees[0])]*2) #creer une nouvelle table de 2 lignes et d'autant de colonnes que de variables
         nouvelle_table.donnees[0] = self.table.donnees[0] #ajout 1er ligne avec nom variables
         temp = []
@@ -40,20 +58,3 @@ class Spatial(Transformation) :
             temp = []
         return nouvelle_table
 
-
-
-test = Table([["var1","var2","var3","var4"],
-              ["5","oui","NA","NA"],
-              ["8","non","87","NA"],
-              ["4","oui","2.9","97"]])
-spa = Spatial(test)
-print(spa.table.donnees)
-res = spa.transforme()
-print(res.donnees)
-
-
-
-
-
-#transf = Transformation(test,["var2"])
-#print(transf.table.donnees)

@@ -24,7 +24,7 @@ def extrait(liste, milieu, taille):
     Example
     ------
     >>> l = [1,2,1,3,4,5,6,7]
-    >>> print(extrait(l, 2, 3)
+    >>> print(extrait(l, 2, 3))
     [2,1,3] 
     """
     if taille % 2 != 0 : # si taille impaire
@@ -39,17 +39,15 @@ class MoyenneGlissante(Estimation):
 
     La moyenne glissante modifie une table (liste de listes), et
     renvoie une table contenant dans chaque case la moyenne des n valeurs 
-    alentours
-    
-    Attributes
-    ---------
+    alentours (n doit être impair)
+
     table : Table
         ensemble des données en liste de listes
     variables : list
         liste des noms des variales à considérer
     arrondi : int = 2
         nombre de décimales pour le calcul des statistiques
-        
+
     Example
     -------
     >>> t = Table([["var1","var2","var3","var4"],
@@ -59,16 +57,16 @@ class MoyenneGlissante(Estimation):
               [3,"non",66,78.9],
               [9,"oui",25,"NA"],
               [8,"non",7.9,13.6]])
-    >>> m = MoyenneGlissante(t,['var1'])
-    >>> print(m.estime(3))
-    ([["var1","var2","var3","var4"],
-              [6.5,"oui","NA",76],
-              [5.67,"non",87,67.9],
-              [5,"oui",2.9,56],
-              [5.33,"non",66,78.9],
-              [6.67,"oui",25,"NA"],
-              [8.5,"non",7.9,13.6]])
-  
+    >>> d = MoyenneGlissante(t, ['var4'])
+    >>> print(d.estime(3).donnees)
+    [['var1', 'var2', 'var3', 'var4', 'moygliss3'], 
+        [5, 'oui', 'NA', 76, 71.95], 
+        [8, 'non', 87, 67.9, 66.63], 
+        [4, 'oui', 2.9, 56, 67.6], 
+        [3, 'non', 66, 78.9, 67.45], 
+        [9, 'oui', 25, 'NA', 46.25], 
+        [8, 'non', 7.9, 13.6, 13.6]]
+
     '''
 
     def __init__(self, table, variables, arrondi = 2):
@@ -128,17 +126,3 @@ class MoyenneGlissante(Estimation):
                 sortie[p].append(moygliss[p-1])
         return Table(sortie)
 
-
-
-test = Table([["var1","var2","var3","var4"],
-              [5,"oui","NA",76],
-              [8,"non",87,67.9],
-              [4,"oui",2.9,56],
-              [3,"non",66,78.9],
-              [9,"oui",25,"NA"],
-              [8,"non",7.9,13.6]])
-
-est2 = MoyenneGlissante(test,["var4"])
-essai = est2.estime(1)
-
-print(est2.table.donnees)

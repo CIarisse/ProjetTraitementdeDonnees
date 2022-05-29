@@ -23,4 +23,3 @@ class Transformation() :
 
     def transforme(self):
         pass
-

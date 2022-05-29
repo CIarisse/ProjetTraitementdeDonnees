@@ -2,11 +2,49 @@ from table import Table
 from transformation import Transformation
 
 class Jointure(Transformation) :
+    """Classe permettant de joindre 2 tables de jeux de données avec une variable commune
+        
+    Attributes
+    ---------
+    table : Table
+        liste de listes contenant les données
+    variables : list
+        liste avec la variable commune
+    table2 : Table
+        liste de listes contenant les données à joindre à la première table
+    
+    Example
+    -------
+    >>> t =  Table([["var1","var2","var3","var4"],
+            ["5","oui","NA","NA"],
+            ["8","non","87","NA"],
+            ["4","oui","2.9","97"]])
+    >>> t2 = Table([["var3","var5","var6","var7"],
+            ["NA","oui","NA","87"],
+            ["87","oui","87","35"],
+            ["2.9","non","65","93"]])
+    >>> d = Jointure(t, ['var3'], t2)
+    >>> print(d.transforme().donnees)
+    [['var1', 'var2', 'var3', 'var4', 'var5', 'var6', 'var7'], 
+        ['5', 'oui', 'NA', 'NA', 'oui', 'NA', '87'], 
+        ['8', 'non', '87', 'NA', 'oui', '87', '35'], 
+        ['4', 'oui', '2.9', '97', 'non', '65', '93']]
+    """
     def __init__(self, table, variables, table2):
+        """Constructeur"""
         Transformation.__init__(self, table, variables)
         self.table2 = table2
 
     def transforme(self):
+        """Permet de joindre deux tables données en attributs avec une variable commune si celle ci 
+        a bien des colonnes identiques dans les 2 tables
+
+        
+        Returns
+        ------
+        nouvelle_table : Table
+            table résultat de la jointure sur la variable commune
+        """
         #si plus de 1 variable ou pas variable ou nb lignes des tables different : erreur
         if len(self.variables) > 1 or len(self.variables) == 0 or (len(self.table.donnees) != len(self.table2.donnees)):
             print("Erreur : il faut 1 variable à filtrer et le même nombre de lignes pour les 2 tables")
@@ -51,23 +89,3 @@ class Jointure(Transformation) :
 
         return nouvelle_table
 
-
-
-test = Table([["var1","var2","var3","var4"],
-              ["5","oui","NA","NA"],
-              ["8","non","87","NA"],
-              ["4","oui","2.9","97"]])
-join = Table([["var3","var5","var6","var7"],
-              ["NA","oui","NA","87"],
-              ["87","oui","87","35"],
-              ["2.9","non","65","93"]])
-#nouvelle_table = Table([[0]*(len(test.donnees[0])+len(self.table2.donnees[0]))]*len(self.table.donnees))
-#print(len(test.donnees))
-transf = Transformation(test,["var3"])
-#print(transf.table.donnees)
-#print(join.donnees)
-joindre = Jointure(test, ["var3"], join)
-print(joindre.table.donnees)
-print(joindre.table2.donnees)
-res = joindre.transforme()
-print(res.donnees)

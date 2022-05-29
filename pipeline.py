@@ -31,6 +31,8 @@ class Pipeline():
 
     def execute(self, table):
         for operation in self.operations:
+
+            '''
             if ('Centrage' or 'MoyenneGlissante' or 'DonneesManquantes' or 'Statistique' or 'ValeursExtremes') in operation:
                 estimation = operation[0:operation.find('(')]
                 print(estimation)
@@ -45,7 +47,7 @@ class Pipeline():
                 var = operation[operation.find('['):operation.find(']')+1]
                 res = transformation(self.table,var).transforme()
                 table = res
-            
+            '''
 
 test = Table([["var1","var2","var3","var4"],
               [5,"oui","NA",76],
