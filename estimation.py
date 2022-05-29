@@ -6,15 +6,15 @@ class Estimation(ABC):
     Estimation retournant une statistique de variable : Statistique
     Gestion des données manquantes (retourne une table) : DonneeesManquantes
     Gestion des valeurs extrêmes (retourne une table) : ValeursExtremes
-    Calcul d'une moyenne glissante : retourne une table à une dimension
-    Centrer des variables : Centrage
+    Calcul d'une moyenne glissante (retourne une table avec une colonne supplémentaire) : MoyenneGlissante
+    Centrer des variables (retourne une table) : Centrage
 
     Attributs
     ---------
         table : Table
             table que l'on souhaite estimer/modifier
         variables : list
-            liste des variables sur lesquelles ont souhaite appliquer les méthodes
+            liste des variables sur lesquelles on souhaite appliquer les méthodes
         arrondi : int
             précision de l'arrondi pour nos estimations
 
