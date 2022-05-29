@@ -1,3 +1,7 @@
+# Projet Info 1A 2022
+# Clarisse Dubois, Eva Puchalski et Eva Vincent
+
+
 import csv
 import json
 import gzip

@@ -1,3 +1,6 @@
+# Projet Info 1A 2022
+# Clarisse Dubois, Eva Puchalski et Eva Vincent
+
 from estimation import Estimation
 from table import Table
 import statistics

@@ -1,3 +1,6 @@
+# Projet Info 1A 2022
+# Clarisse Dubois, Eva Puchalski et Eva Vincent
+
 from table import Table
 from transformation import Transformation
 from datetime import datetime
