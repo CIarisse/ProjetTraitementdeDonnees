@@ -78,8 +78,6 @@ class Table():
         ----------
         chemin : str 
             Le chemin où se trouve le fichier json
-        nom : str 
-            Le nom du fichier qui contient les donnees 
 
         Examples
         --------
