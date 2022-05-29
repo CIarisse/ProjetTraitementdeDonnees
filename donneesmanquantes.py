@@ -5,6 +5,32 @@ import statistics
 class DonneesManquantes(Estimation):
     """Classe permettant de gérer les données manquantes
     Les données seront soit supprimées, soit remplacées par la moyenne de la variable
+    
+    table : Table
+        ensemble des données en liste de listes
+    variables : list
+        liste des noms des variales à considérer
+    arrondi : int = 2
+        nombre de décimales pour le calcul des statistiques
+        
+    Example
+    ------
+    >>> t = Table([["var1","var2","var3","var4"],
+              [5,"oui","NA",76],
+              [8,"non",87,67.9],
+              [4,"oui",2.9,56],
+              [3,"non",66,78.9],
+              [9,"oui",25,"NA"],
+              [8,"non",7.9,13.6]])
+    >>> d = DonneesManquante(t,['var3'])
+    >>> print(d.estime('suppression')
+    [["var1","var2","var3","var4"],
+              [5,"oui","NA",76],
+              [8,"non",87,67.9],
+              [4,"oui",2.9,56],
+              [3,"non",66,78.9],
+              [8,"non",7.9,13.6]]
+    
     """
 
     def __init__(self, table, variables, arrondi = 2):
