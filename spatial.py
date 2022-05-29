@@ -50,11 +50,8 @@ class Spatial(Transformation) :
 
         for i in range(len(self.table.donnees[0])): #on parcourt les colonnes
             for j in range(len(self.table.donnees)): #on parcourt les lignes
-                try:
-                    float(self.table.donnees[j][i])
+                if isinstance(self.table.donnees[j][i], int) or isinstance(self.table.donnees[j][i], float):
                     temp.append(self.table.donnees[j][i])
-                except ValueError:
-                    continue     
             if len(temp) != 0 :
                 nouvelle_table.donnees[1][i] = round(statistics.mean(temp),2)
             else :

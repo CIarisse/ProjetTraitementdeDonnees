@@ -81,31 +81,7 @@ class Pipeline():
                 table = operation[0].estime(operation[1])
         return table
 
-
 if __name__ == "__main__":
     import doctest
     doctest.testmod()
 
-'''
-test = Table([["var1","var2","var3","var4"],
-              [5,"oui","NA",76],
-              [8,"non",87,67.9],
-              [4,"oui",2.9,56],
-              [3,"non",66,78.9],
-              [9,"oui",25,"NA"],
-              [8,"non",7.9,13.6]])
-
-essai = Pipeline()
-essai.ajoute(NomVariable(test,["var3"], ['ndnd']))
-essai.ajoute(SelectionVa(test,['ndnd',"var4"]))
-essai.ajoute([Centrage(test,["var4"]),'centrer'])
-essai.ajoute(NomVariable(test,["var4"], ['marche']))
-print(essai.operations)
-print(essai.execute(test).donnees)
-
-#essai.ajoute(SelectionVa(test,['ndnd',"var4"]))
-#essai.ajoute(Spatial(test))
-#print(essai.operations)
-#print(essai.execute(test).donnees)
-
-'''
