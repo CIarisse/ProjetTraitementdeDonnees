@@ -109,7 +109,7 @@ class Table():
                 else:
                     dictionnaire[variable].append('NA')
 
-        #Finalement on a la table suivante
+        "Finalement on a la table suivante"
         donnees = [variables]
         for variable in dictionnaire:
             for j in range(len(dictionnaire[variable])):
@@ -128,7 +128,7 @@ class Table():
 
         self.donnees = donnees
         
-
+    "exportation des données"
     def export(self,chemin, nom_fichier):
         resultat=[]
         for i in range(len(self.donnees)):
