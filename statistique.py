@@ -88,16 +88,3 @@ class Statistique(Estimation):
                 res.append(round(statistics.pvariance(valeurs),self.arrondi))
         return res
 
-
-test = Table([["var1","var2","var3","var4"],
-              [5,"oui","NA",76],
-              [8,"non",87,67.9],
-              [4,"oui",2.9,56],
-              [3,"non",66,78.9],
-              [9,"oui",25,"NA"],
-              [8,"non",7.9,13.6]])
-
-est2 = Statistique(test,["var4","var1"])
-essai = est2.estime('medianne')
-
-print(essai)
