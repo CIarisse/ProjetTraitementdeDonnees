@@ -5,11 +5,11 @@ from transformation import Transformation
 
 
 class Spatial(Transformation) :
-    """Classe qui permet, via la méthode transforme, de passer de données régionales à des données natinales
+    """Classe qui permet, via la méthode transforme, de passer de données régionales à des données nationales
     
     Attributes
     ----------
-        table : Table
+    table : Table
         ensemble des données en liste de listes
     variables : list=[]
         liste des noms des variales à considérer
