@@ -2,7 +2,35 @@ from table import Table
 from transformation import Transformation
 
 class SelectionVa(Transformation) :
+    """Classe permettant de ne sélectionner que les variables qui nous intéressent
+    
+    Attributes
+    ----------
+    table : Table
+        ensemble des données en liste de listes
+    variables : list
+        liste des noms des variales à considérer
+        
+    Example
+    -------
+    >>> t = Table([["var1","var2","var3","var4"],
+              [5,"oui","NA",76],
+              [8,"non",87,67.9],
+              [4,"oui",2.9,56],
+              [3,"non",66,78.9]]
+    >>> s = SelectionVa(t,['var1','var4'])
+    >>> print(s.transforme())
+    [["var1","var4"],
+              [5,76],
+              [8,67.9],
+              [4,56],
+              [3,78.9]]
+    
+    """
+    
+    
     def __init__(self, table, variables):
+        """Constructeur"""
         Transformation.__init__(self, table, variables)
 
     def transforme(self):
