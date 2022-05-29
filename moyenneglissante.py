@@ -39,7 +39,36 @@ class MoyenneGlissante(Estimation):
 
     La moyenne glissante modifie une table (liste de listes), et
     renvoie une table contenant dans chaque case la moyenne des n valeurs 
-    alentours (n doit être impair)
+    alentours
+    
+    Attributes
+    ---------
+    table : Table
+        ensemble des données en liste de listes
+    variables : list
+        liste des noms des variales à considérer
+    arrondi : int = 2
+        nombre de décimales pour le calcul des statistiques
+        
+    Example
+    -------
+    >>> t = Table([["var1","var2","var3","var4"],
+              [5,"oui","NA",76],
+              [8,"non",87,67.9],
+              [4,"oui",2.9,56],
+              [3,"non",66,78.9],
+              [9,"oui",25,"NA"],
+              [8,"non",7.9,13.6]])
+    >>> m = MoyenneGlissante(t,['var1'])
+    >>> print(m.estime(3))
+    ([["var1","var2","var3","var4"],
+              [6.5,"oui","NA",76],
+              [5.67,"non",87,67.9],
+              [5,"oui",2.9,56],
+              [5.33,"non",66,78.9],
+              [6.67,"oui",25,"NA"],
+              [8.5,"non",7.9,13.6]])
+  
     '''
 
     def __init__(self, table, variables, arrondi = 2):
