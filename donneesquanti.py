@@ -2,7 +2,37 @@ from table import Table
 from transformation import Transformation
 
 class DonneesQuanti(Transformation) :
+    """Classe permettant de filtrer les données quantitatives selon un intervalle de valeurs
+    
+    Attributes
+    ---------
+    table : Table
+        liste de listes contenant les données
+    variables : list
+        liste des noms des variables à considérer
+    borne_inf : float
+        borne inférieure des valeurs à conserver
+    borne_sup : float
+        borne supérieure des valeurs à conserver
+    
+    Example
+    -------
+    >>> t = [["var1","var2","var3","var4"],
+              [5,"oui","NA",76],
+              [8,"non",87,67.9],
+              [4,"oui",2.9,56],
+              [3,"non",66,78.9],
+              [9,"oui",25,"NA"],
+              [8,"non",7.9,13.6]]
+    >>> d = DonneesQuanti(t, ['var1'], 4, 6)
+    >>> print(d.transforme())
+    [["var1","var2","var3","var4"],
+              [5,"oui","NA",76],
+              [4,"oui",2.9,56]]
+    """
+    
     def __init__(self, table, variables, borne_inf, borne_sup):
+        """Constructeur"""
         Transformation.__init__(self, table, variables)
         self.borne_inf = borne_inf
         self.borne_sup = borne_sup
