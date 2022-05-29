@@ -45,7 +45,7 @@ class Centrage(Estimation):
         Parameters
         ---------
         methode : str
-            methode à appliquer : 'centrage' ou 'normalisation'
+            methode à appliquer : 'centrer' ou 'normer'
         
         Returns
         ------
