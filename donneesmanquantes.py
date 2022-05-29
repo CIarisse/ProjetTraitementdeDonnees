@@ -22,7 +22,7 @@ class DonneesManquantes(Estimation):
               [3,"non",66,78.9],
               [9,"oui",25,"NA"],
               [8,"non",7.9,13.6]])
-    >>> d = DonneesManquante(t,['var3'])
+    >>> d = DonneesManquante(t,['var4'])
     >>> print(d.estime('suppression')
     [["var1","var2","var3","var4"],
               [5,"oui","NA",76],
@@ -47,7 +47,7 @@ class DonneesManquantes(Estimation):
         Parameters
         ----------
         methode : str
-            méthode à utiliser pour gérer les données manquantes
+            méthode à utiliser pour gérer les données manquantes 'moyenne','mediane' ou 'suppression'
 
 
 
@@ -102,27 +102,6 @@ class DonneesManquantes(Estimation):
                         i += 1
 
         return Table(sortie)
-
-
-
-test = Table([["var1","var2","var3","var4"],
-              [5,"oui","NA",76],
-              [8,"non",87,67.9],
-              [4,"oui",2.9,56],
-              [3,"non",66,78.9],
-              [9,"oui",25,"NA"],
-              [8,"non",7.9,13.6]])
-
-test2 = Table([["var5","var2","var3","var4"],
-              [5,"oui","NA",76],
-              [8,"non",87,67.9],
-              [4,"oui",2.9,56],
-              [3,"non",66,78.9],
-              [9,"oui",25,"NA"],
-              [8,"non",7.9,13.6]])
-
-est2 = DonneesManquantes(test,["var4"])
-essai = est2.estime('moyenne')
 
 print(est2.table.donnees)
 print(est2.variables)
