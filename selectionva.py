@@ -1,8 +1,15 @@
 # Projet Info 1A 2022
 # Clarisse Dubois, Eva Puchalski et Eva Vincent
 
+import os,sys,inspect
+currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+parentdir = os.path.dirname(currentdir)
+sys.path.insert(0,parentdir) 
+
+import table
+
 from table import Table
-from transformation import Transformation
+from transformations.transformation import Transformation
 
 class SelectionVa(Transformation) :
     """Classe permettant de ne sélectionner que les variables qui nous intéressent
@@ -40,7 +47,7 @@ class SelectionVa(Transformation) :
         nouvelle_table : Table
             table modifiée avec uniquement les colonnes de variables attendues
         """
-        nouvelle_table=Table()
+        nouvelle_table=[]
 
         for i in range(len(self.variables)): #on parcourt le nom des variables à sélectionner
             for j in range(len(self.table.donnees[0])): #on parcourt le nom des variables de la Table
@@ -49,10 +56,10 @@ class SelectionVa(Transformation) :
                     
                     for k in range(len(self.table.donnees)):
                         if i == 0:
-                            nouvelle_table.donnees.append([])
-                        nouvelle_table.donnees[k].append(self.table.donnees[k][j]) 
+                            nouvelle_table.append([])   
+                        nouvelle_table[k].append(self.table.donnees[k][j]) 
                 
-        return nouvelle_table
+        return Table(nouvelle_table)
 
 
 if __name__ == "__main__":

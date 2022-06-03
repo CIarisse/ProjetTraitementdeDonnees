@@ -2,20 +2,20 @@
 # Clarisse Dubois, Eva Puchalski et Eva Vincent
 
 from table import Table
-from estimation import Estimation
-from transformation import Transformation
-from centrage import Centrage
-from donneesmanquantes import DonneesManquantes
-from donneesquali import DonneesQuali
-from donneesquanti import DonneesQuanti
-from jointure import Jointure
-from moyenneglissante import MoyenneGlissante
-from nomvariable import NomVariable
-from selectionva import SelectionVa
-from spatial import Spatial
-from statistique import Statistique
-from temporel import Temporel
-from valeursextremes import ValeursExtremes
+from estimations.estimation import Estimation
+from transformations.transformation import Transformation
+from estimations.centrage import Centrage
+from estimations.donneesmanquantes import DonneesManquantes
+from transformations.donneesquali import DonneesQuali
+from transformations.donneesquanti import DonneesQuanti
+from transformations.jointure import Jointure
+from estimations.moyenneglissante import MoyenneGlissante
+from transformations.nomvariable import NomVariable
+from transformations.selectionva import SelectionVa
+from transformations.spatial import Spatial
+from estimations.statistique import Statistique
+from transformations.temporel import Temporel
+from estimations.valeursextremes import ValeursExtremes
 
 
 
@@ -73,8 +73,8 @@ class Pipeline():
         """
         for operation in self.operations:
             if isinstance(operation,Transformation):
-                    operation.table = table
-                    table = operation.transforme()
+                operation.table = table
+                table = operation.transforme()
 
             elif isinstance(operation[0],Estimation) :
                 operation[0].table = table
@@ -84,4 +84,3 @@ class Pipeline():
 if __name__ == "__main__":
     import doctest
     doctest.testmod()
-

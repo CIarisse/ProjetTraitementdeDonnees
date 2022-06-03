@@ -1,7 +1,14 @@
 # Projet Info 1A 2022
 # Clarisse Dubois, Eva Puchalski et Eva Vincent
 
-from transformation import Transformation
+import os,sys,inspect
+currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+parentdir = os.path.dirname(currentdir)
+sys.path.insert(0,parentdir) 
+
+import table
+
+from transformations.transformation import Transformation
 from table import Table
 
 class DonneesQuali(Transformation) :
@@ -52,15 +59,15 @@ class DonneesQuali(Transformation) :
             print("Erreur : il faut 1 variable à filtrer")
             return None
 
-        nouvelle_table = Table([])
-        nouvelle_table.donnees.append(self.table.donnees[0])
+        nouvelle_table = []
+        nouvelle_table.append(self.table.donnees[0])
         for i in range(len(self.table.donnees[0])): #on parcourt le nom des variables de Table
             if self.variables[0] == self.table.donnees[0][i]: #si on retrouve le nom de la variable dans Table
                 for j in range(1,len(self.table.donnees)): #on parcourt les lignes
                     for k in range(len(self.valeurs)): #on parcourt les valeurs qui nous interessent
                         if self.table.donnees[j][i] == self.valeurs[k]: #si valeur dans notre colonne a bien valeur demande 
-                            nouvelle_table.donnees.append(self.table.donnees[j]) #ajout de la ligne avec la bonne valeur
-        return nouvelle_table
+                            nouvelle_table.append(self.table.donnees[j]) #ajout de la ligne avec la bonne valeur
+        return Table(nouvelle_table)
 
 if __name__ == "__main__":
     import doctest

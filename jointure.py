@@ -1,8 +1,15 @@
 # Projet Info 1A 2022
 # Clarisse Dubois, Eva Puchalski et Eva Vincent
 
+import os,sys,inspect
+currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+parentdir = os.path.dirname(currentdir)
+sys.path.insert(0,parentdir) 
+
+import table
+
 from table import Table
-from transformation import Transformation
+from transformations.transformation import Transformation
 
 class Jointure(Transformation) :
     """Classe permettant de joindre 2 tables de jeux de données avec une variable commune
@@ -19,16 +26,16 @@ class Jointure(Transformation) :
     Example
     -------
     >>> t =  Table([["var1","var2","var3","var4"],
-    ...        [5,"oui","NA","NA"],
-    ...        [8,"non",87,"NA"],
-    ...        [4,"oui",2.9,97]])
-    >>> t2 = Table([["var3","var5","var6","var7"],
-    ...        ["NA","oui","NA",87],
-    ...        [87,"oui",87,35],
-    ...        [2.9,"non",65,93]])
-    >>> d = Jointure(t, ['var3'], t2)
+    ...    [5,"oui","NA","NA"],
+    ...    [8,"non",87,"NA"],
+    ...   [4,"oui",2.9,97]])
+    >>> t2 = Table([["var3","var5","var6","var4"],
+    ...    ["NA","oui","NA","NA"],
+    ...   [87,"oui",87,35],
+    ...   [2.9,"non",65,97]])
+    >>> d = Jointure(t, ['var3','var4'], t2)
     >>> print(d.transforme().donnees)
-    [['var1', 'var2', 'var3', 'var4', 'var5', 'var6', 'var7'], [5, 'oui', 'NA', 'NA', 'oui', 'NA', 87], [8, 'non', 87, 'NA', 'oui', 87, 35], [4, 'oui', 2.9, 97, 'non', 65, 93]]
+    [['var1', 'var2', 'var3', 'var4', 'var3', 'var5', 'var6', 'var4'], [5, 'oui', 'NA', 'NA', 'NA', 'oui', 'NA', 'NA'], [4, 'oui', 2.9, 97, 2.9, 'non', 65, 97]]
     """
     def __init__(self, table, variables, table2):
         """Constructeur"""
@@ -45,50 +52,46 @@ class Jointure(Transformation) :
         nouvelle_table : Table
             table résultat de la jointure sur la variable commune
         """
-        #si plus de 1 variable ou pas variable ou nb lignes des tables different : erreur
-        if len(self.variables) > 1 or len(self.variables) == 0 or (len(self.table.donnees) != len(self.table2.donnees)):
-            print("Erreur : il faut 1 variable à filtrer et le même nombre de lignes pour les 2 tables")
+        #si pas de variable commune clef : erreur
+        if len(self.variables) == 0:
+            print("Erreur : il faut au moins 1 variable clef")
             return None     
 
-        nouvelle_table=Table()
-
-
-        #on recopie le premier tableau
-        comp = 0
-        var = []
-        for k in range(len(self.table.donnees)): #parcourt lignes
-            nouvelle_table.donnees.append([])
-            for i in range(len(self.table.donnees[0])): #parcourt colonnes
-                if self.variables[0] != self.table.donnees[0][i]:
-                    comp += 1
-                else :
-                    var.append(self.table.donnees[k][i])
-                nouvelle_table.donnees[k].append(self.table.donnees[k][i]) 
-        if comp == len(self.table.donnees[0]):
-            print("Erreur : La variable clef n'est pas présente dans la première table")
-            return None  
-  
-        #on recopie le deuxieme tableau sans la colonne commune
-        comp = 0
+        colonnes1 = []
+        colonnes2 = []
+        var1 = []
         var2 = []
-        for l in range(len(self.table2.donnees)): #parcourt lignes
-            for j in range(len(self.table2.donnees[0])): #parcourt colonnes
-                if self.table2.donnees[0][j] != self.variables[0]:
-                    nouvelle_table.donnees[l].append(self.table2.donnees[l][j]) 
-                    comp += 1
-                else :
-                    var2.append(self.table2.donnees[l][j])
+        for i in range(len(self.variables)) : # pour toutes les variables qu'on veut traiter
+            colonnes1.append(self.table.donnees[0].index(self.variables[i]))
+            colonnes2.append(self.table2.donnees[0].index(self.variables[i]))
+            # colonnes1 et colonnes2 récupèrent les indices des colonnes des variables que l'on veut traiter
+                #si variable commune clef pas dans 2 tables : erreur
 
-        if comp == len(self.table2.donnees[0]):
-            print("Erreur : La variable clef n'est pas présente dans la deuxième table")
-            return None  
-
-        if var != var2:
-            print("Erreur : Les 2 colonnes de la variable clef ne sont pas les mêmes")
+        if len(colonnes1) != len(self.variables) or len(colonnes2) != len(self.variables):
+            print("Erreur : Les variables clefs ne sont pas toutes présentes dans la première table")
             return None
 
-        return nouvelle_table
+        for i in range(len(self.table.donnees)):
+            var1.append([])
+            for c1 in colonnes1:
+                var1[i].append(self.table.donnees[i][c1])
+
+        for j in range(len(self.table2.donnees)):
+            var2.append([])
+            for c2 in colonnes2:
+                var2[j].append(self.table2.donnees[j][c2])
+
+        nouvelle_table=[]
+
+        for i in range(len(var1)):
+            for j in range(len(var2)):
+                if var1[i] == var2[j] :
+                    nouvelle_table.append(self.table.donnees[i] + self.table2.donnees[j])
+
+        return Table(nouvelle_table)
+
 
 if __name__ == "__main__":
     import doctest
     doctest.testmod()
+

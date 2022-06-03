@@ -1,8 +1,15 @@
 # Projet Info 1A 2022
 # Clarisse Dubois, Eva Puchalski et Eva Vincent
 
+import os,sys,inspect
+currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+parentdir = os.path.dirname(currentdir)
+sys.path.insert(0,parentdir) 
+
+import table
+
 from table import Table
-from transformation import Transformation
+from transformations.transformation import Transformation
 
 class DonneesQuanti(Transformation) :
     """Classe permettant de filtrer les données quantitatives selon un intervalle de valeurs
@@ -53,15 +60,15 @@ class DonneesQuanti(Transformation) :
             print("Erreur : il faut 1 variable à filtrer")
             return None
 
-        nouvelle_table = Table([])
-        nouvelle_table.donnees.append(self.table.donnees[0])
+        nouvelle_table = []
+        nouvelle_table.append(self.table.donnees[0])
         for i in range(len(self.table.donnees[0])): #on parcourt le nom des variables de Table
             if self.variables[0] == self.table.donnees[0][i]: #si on retrouve le nom de la variable dans Table
                 for j in range(1,len(self.table.donnees)): #on parcourt les lignes
                     if self.table.donnees[j][i] != 'NA' : 
                         if self.table.donnees[j][i] < self.borne_sup and self.table.donnees[j][i] > self.borne_inf: #si valeur dans notre colonne est bien dans bornes demandees
-                            nouvelle_table.donnees.append(self.table.donnees[j]) #ajout de la ligne avec la bonne valeur            
-        return nouvelle_table
+                            nouvelle_table.append(self.table.donnees[j]) #ajout de la ligne avec la bonne valeur            
+        return Table(nouvelle_table)
 
 if __name__ == "__main__":
     import doctest

@@ -1,7 +1,14 @@
 # Projet Info 1A 2022
 # Clarisse Dubois, Eva Puchalski et Eva Vincent
 
-from estimation import Estimation
+import os,sys,inspect
+currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+parentdir = os.path.dirname(currentdir)
+sys.path.insert(0,parentdir) 
+
+import table
+
+from estimations.estimation import Estimation
 from table import Table
 import statistics
 
